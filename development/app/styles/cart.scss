@@ -8,3 +8,59 @@
     padding: 2rem;
   }
 }
+
+
+#inline-cart{
+  font-size: 1.6rem;
+  line-height: 1.6rem;
+
+  position: absolute;
+  max-width: 30rem;
+  top: 100%;
+  right: 0;
+  z-index: 999;
+  border: 1px solid #ededed;
+  background: #fff;
+
+  .items{
+    padding: 0.8rem;
+  }
+
+  .item-title{
+    font-family: 'DIN CondensedBold';
+    text-transform: uppercase;
+  }
+
+  .item-option{
+    color: #999999;
+    font-size: 1.2rem;
+  }
+
+  .item{
+    border-bottom: 1px solid #ededed;
+
+    &:last-child{
+      border: none;
+    }
+
+    padding: 1.5rem 0;
+  }
+
+  .subtotal{
+    padding: 2rem 0.8rem;
+    background: #ededed;
+    font-size: 1.2rem;
+    font-family: 'Gotham Medium';
+    .total-price{
+      font-family: 'Gotham Bold';
+    }
+
+    .btn{
+      display: block;
+      font-family: 'Gotham Medium';
+      font-size: 1.5rem;
+      line-height: 4.4rem;
+      padding: 0;
+    }
+  }
+}

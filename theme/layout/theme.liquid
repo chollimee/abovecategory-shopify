@@ -76,7 +76,13 @@
     var app = require("scripts/App.js");
 
     $(function(){
-      CartJS.init({{ cart | json }}, {
+      var cart = {{ cart | json }};
+
+      {% for item in cart.items %}
+        cart.items[{{ forloop.index | minus: 1 }}].product_options = {{item.product.options | json}};
+      {% endfor %}
+
+      CartJS.init(cart, {
           "dataAPI": false,
           "requestBodyClass": "loading"
       });

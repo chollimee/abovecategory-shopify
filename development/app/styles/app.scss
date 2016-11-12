@@ -77,9 +77,10 @@ h2{
 
 #search-form{
 	margin-top: 3.5rem;
-	margin-right: 3rem;
-	margin-bottom: 1rem;
-	width: 20rem;
+  margin-right: 1rem;
+  margin-bottom: 1rem;
+  width: 26.5rem;
+
 	.input-group{
 		@include border-radius(0.5rem);
 	}

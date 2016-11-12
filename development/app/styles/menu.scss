@@ -35,6 +35,8 @@ nav{
   border-bottom: 1px solid $color-acc-main-nav-border-bottom;
   padding: 0 3.5rem;
 
+  position: relative;
+
   #main-menu{
     text-align: center;
 
@@ -72,7 +74,8 @@ nav{
   #cart-links{
     a{ 
       font-size: 1.3rem; 
-      color: #373a3c;
+      font-family: 'Gotham Medium';
+      color: #8d8d8d;
     }
 
     a.cart{

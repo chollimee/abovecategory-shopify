@@ -218,13 +218,39 @@ class InlineCart extends React.Component {
 
   render() {
     var items = [];
+
     for (var i = 0; i < this.props.items.length; i++) {
-      items.push(React.createElement(CartItem, { item: this.props.items[i] }));
+      items.push(React.createElement(CartItem, { item: this.props.items[i], key: i }));
     }
+
     return React.createElement(
-      'div',
+      "div",
       null,
-      items
+      React.createElement(
+        "div",
+        { className: "items" },
+        items
+      ),
+      React.createElement(
+        "div",
+        { className: "subtotal" },
+        React.createElement(
+          "p",
+          null,
+          "SUBTOTAL WITH FREE SHIPPING: ",
+          React.createElement(
+            "span",
+            { className: "total-price" },
+            "$",
+            CartJS.cart.total_price / 100
+          )
+        ),
+        React.createElement(
+          "a",
+          { href: "/cart", className: "btn btn-danger" },
+          "VIEW CART"
+        )
+      )
     );
   }
 }
@@ -235,16 +261,90 @@ class CartItem extends React.Component {
   }
 
   render() {
+    var options = [];
+    if (this.props.item.variant_options) {
+      for (var i = 0; i < this.props.item.variant_options.length; i++) {
+        options.push(React.createElement(
+          "div",
+          { className: "item-option", key: i },
+          React.createElement(
+            "span",
+            null,
+            this.props.item.product_options[i],
+            ":"
+          ),
+          " ",
+          this.props.item.variant_options[i]
+        ));
+      }
+    }
+
     return React.createElement(
-      'div',
-      null,
-      this.props.item.title
+      "div",
+      { className: "item" },
+      React.createElement(
+        "div",
+        { className: "row" },
+        React.createElement(
+          "div",
+          { className: "col-sm-3" },
+          React.createElement(
+            "div",
+            { className: "col-expand-right" },
+            React.createElement("img", { src: this.props.item.image })
+          )
+        ),
+        React.createElement(
+          "div",
+          { className: "col-sm-6" },
+          React.createElement(
+            "div",
+            { className: "item-title" },
+            this.props.item.product_title
+          ),
+          React.createElement(
+            "div",
+            { className: "item-qty item-option" },
+            React.createElement(
+              "span",
+              null,
+              "QTY:"
+            ),
+            " ",
+            this.props.item.quantity
+          ),
+          options
+        ),
+        React.createElement(
+          "div",
+          { className: "col-sm-3" },
+          React.createElement(
+            "div",
+            { className: "col-expand-left" },
+            "$",
+            this.props.item.line_price / 100
+          )
+        )
+      )
     );
   }
 }
 
 var Cart = {
   initialize: function () {
+
+    jQuery('#cart-links a.cart').bind('click', function (e) {
+      e.preventDefault();
+      jQuery('#inline-cart').toggle();
+      return false;
+    });
+
+    jQuery(document).bind("click", function (e) {
+      var container = jQuery("#inline-cart");
+      if (!container.is(e.target) && container.has(e.target).length === 0) {
+        jQuery('#inline-cart').hide();
+      }
+    });
 
     ReactDOM.render(React.createElement(InlineCart, { items: CartJS.cart.items }), document.getElementById('inline-cart'));
   }
