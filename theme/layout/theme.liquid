@@ -76,12 +76,12 @@
     var app = require("scripts/App.js");
 
     $(function(){
-      app.initialize();
-
       CartJS.init({{ cart | json }}, {
           "dataAPI": false,
           "requestBodyClass": "loading"
       });
+
+      app.initialize();
     });
   </script>
 

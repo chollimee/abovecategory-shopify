@@ -9,7 +9,6 @@ exports.config =
   plugins:
     babel:
       presets: ['react']
-      ignore: [/^(bower_components|vendor)/]
       pattern: /\.(es6|jsx)$/
     uglify:
       mangle: false
@@ -19,7 +18,8 @@ exports.config =
     autoReload:
       enabled: false
   conventions:
-    assets: [ path('app/assets') ]
+    ignored: [ path('app/assets') ]
+    #assets: [ path('app/assets') ]
   modules2:
     definition: false
     wrapper: false

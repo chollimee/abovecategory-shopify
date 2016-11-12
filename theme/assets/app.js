@@ -201,6 +201,7 @@ var App = {
         this.initialize_viewport();
         this.initialize_elements();
         Menu.initialize();
+
         Cart.initialize();
     }
 }
@@ -210,24 +211,42 @@ module.exports = App;
 });
 
 require.register("scripts/Cart.jsx", function(exports, require, module) {
-class CartComponent extends React.Component {
+class InlineCart extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { items: [] };
+  }
+
+  render() {
+    var items = [];
+    for (var i = 0; i < this.props.items.length; i++) {
+      items.push(React.createElement(CartItem, { item: this.props.items[i] }));
+    }
+    return React.createElement(
+      'div',
+      null,
+      items
+    );
+  }
+}
+
+class CartItem extends React.Component {
+  constructor(props) {
+    super(props);
   }
 
   render() {
     return React.createElement(
       'div',
       null,
-      'Cart'
+      this.props.item.title
     );
   }
 }
 
 var Cart = {
   initialize: function () {
-    ReactDOM.render(React.createElement(CartComponent, { items: CartJS.items }), document.getElementById('inline-cart'));
+
+    ReactDOM.render(React.createElement(InlineCart, { items: CartJS.cart.items }), document.getElementById('inline-cart'));
   }
 };
 

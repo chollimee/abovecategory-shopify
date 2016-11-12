@@ -1251,7 +1251,6 @@ select {
   border: 1px solid $colorBorder;
   width: 100%;
   max-width: 100%;
-  display: block;
   margin: 0 0 1em;
   color: #333 !important;
 
@@ -2327,7 +2326,6 @@ aside time em {
   padding-top: $gutter;
 
   & + & {
-    margin-top: $gutter;
     border-top: 1px solid $colorBorder;
   }
 
@@ -2385,7 +2383,6 @@ aside time em {
 
 input.cart__quantity-selector {
   width: 100px;
-  margin: 0 auto;
 }
 
 .cart__remove {
@@ -2484,19 +2481,6 @@ input.cart__quantity-selector {
   margin-left: 6px;
   font-size: 1.27 * $baseFontSize;
   font-weight: $headerFontWeight;
-}
-
-.product-single__quantity {
-  margin-bottom: $gutter / 2;
-
-  &.is-hidden {
-    display: none;
-  }
-
-  .quantity-selector {
-    display: inline-block;
-    width: 100px;
-  }
 }
 
 @include at-query($min, $large) {
@@ -2834,7 +2818,7 @@ color:#FFF; font-weight:normal;  font-family: 'Gotham Bold'; }
  min-height:90px;  position:relative;}
 .cart__subtotal, .cart-additional-savings__price{margin:0;}
 
-.cart__row {background: #ededed; margin:10px -12px 0; padding: 10px;}
+.cart__row {background: #ededed; padding: 10px;}
 
 .header-bar__module .dropdown-content span.cart__subtotal{color:#333332!important;
  text-transform:uppercase; font-family: 'Gotham Bold'!important;  margin-bottom: 10px;}
@@ -2870,11 +2854,10 @@ font-family: 'Gotham Bold'!important;}
 .product-single__photos{margin-bottom: 20px;}
 ul.product-single__thumbnails {align-items: center; display: flex; flex-flow: row wrap;}
 .product-single h1{font-size:26px; color:#333332; margin-bottom: 0; text-transform: uppercase;}
+.product-single .product-single__price{font-size:13.31px; color:#55595a; font-weight:normal; font-family: 'Gotham Book';}
+
 .displayTabs{border-top:1px solid #f3f3f3; padding:20px 0; margin:20px 0; font-size:12px;
  color:#333332;  font-family: 'surrounding'; line-height:15px; border-bottom:1px solid #f3f3f3;}
-
-.product-single .single-image{max-width:609px; width:100%;}
-.product-single .selector-wrapper:first child{width:100%; max-width:100%; float:none;}
 .MagicToolboxMessage{display:none!important;}
 .mz-hover-zoom span a, .mz-figure span, .mz-expand span, .mz-expand span a, .mz-hover-zoom div a,
 .mz-hover-zoom a, .mz-expand a, .mz-expand div a{text-indent:-99999px!important; display:block!important;}
@@ -2889,12 +2872,15 @@ a[data-zoom-id] img, .mz-thumb img{box-shadow:none!important;}
  font-family: 'Gotham Book'; background: #fff url("../assets/select-icon.png") no-repeat right center;
 display:inline-block!important; width:inherit!important; padding-right:20px;}
 
-.product-single__quantity .quantity-selector, .single-option-selector {width: 100% !important; 
-background: #fff url("../assets/select-icon.png") no-repeat scroll right 10px center!important;
-border: 2px solid #b4b6b7!important; color: #333332; font-family: "Gotham Medium";
- font-size: 11.9px; border-radius:0;}
+.swatch .header{font-family: 'Gotham Medium'; color:#333332;  text-transform:uppercase;
+ font-size:11.9px;  margin-bottom: 12px !important;}
+.swatch-element > label{width:24px!important; height:24px!important;}
+.swatch input:checked + label{box-shadow:none!important;}
+.swatch .tooltip{display:none!important;}
+.swatch{border-bottom: 1px solid #f3f3f3; margin-bottom:20px!important; padding-bottom:20px;}
+.product-single .selector-wrapper{margin-right: 20px;}
+
 .tow-col-input{border-bottom: 1px solid #f3f3f3; margin-bottom:20px!important; padding-bottom:20px;}
-.product-single__quantity{ margin-bottom: 0px;}
 a:hover, a:focus, .text-link:hover, .text-link:focus {color: #7bc4d2;}
 #AddToCart{background-color:#7bc4d2; color:#ffffff; font-family: 'Gotham Medium'; font-size:11.9px;
 width:100%; display:block; border-radius:0; text-align:center;  text-transform: uppercase;}
@@ -2931,7 +2917,6 @@ border-bottom:3px solid #f5f5f5; margin-bottom:0px; padding-bottom:10px;}
 .MagicToolboxContainer .mz-figure span a{color:#fff!important;}
 
 .right_des ul{ list-style: inside;}
-#tab-2.tab-content{padding: 45px 0  80px!important;}
 
 .product_slider{width:100%;}
 .product_slider img{width:100%;} 

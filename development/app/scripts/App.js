@@ -50,6 +50,7 @@ var App = {
         this.initialize_viewport();
         this.initialize_elements();
         Menu.initialize();
+
         Cart.initialize();
     }
 }

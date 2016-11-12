@@ -1,18 +1,35 @@
-class CartComponent extends React.Component {
+class InlineCart extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { items: [] };
   }
 
   render() {
-    return <div>Cart</div>;
+    var items = [];
+    for(var i = 0; i < this.props.items.length; i++)
+    {
+      items.push(<CartItem item={this.props.items[i]}/>);
+    }
+    return <div>{items}</div>;
+  }
+}
+
+class CartItem extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return (
+        <div>{this.props.item.title}</div>
+      );
   }
 }
 
 var Cart = {
   initialize: function() {
+
     ReactDOM.render(
-      <CartComponent items={CartJS.items} />,
+      <InlineCart items={CartJS.cart.items} />,
       document.getElementById('inline-cart')
     );
   }

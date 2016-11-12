@@ -199,6 +199,15 @@ img{
   margin: 0;
 }
 
+.section-header{
+  margin-top: 3rem;
+  h1{
+    font-family: 'DIN CondensedBold';
+    font-size: 3.5rem;
+    text-transform: uppercase;
+  }
+}
+
 .section-header--breadcrumb {
   border-bottom: 4px solid #f5f5f5;
   padding: 1.5rem 0 1rem 5rem;
@@ -342,4 +351,8 @@ img{
   padding: 1.5rem 0;
   background: #7bc4d2;
   outline: none;
+}
+
+#inline-cart{
+  display: none;
 }

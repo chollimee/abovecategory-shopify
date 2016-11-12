@@ -7,7 +7,7 @@
     "bower_components"
   ],
   "dependencies": {
-    "react": "~0.10.0",
+    "react": "~15.3.2",
     "bootstrap": "v4.0.0-alpha.4",
     "components-font-awesome": "~4.6.3",
     "sidebars": "~2.0.2",
@@ -20,8 +20,6 @@
 
   },
   "overrides": {
-    "react": {
-      "main": "react-with-addons.js"
-    }
+
   }
 }
