@@ -1,0 +1,248 @@
+.product-single{
+  .product-single__title{
+    font-family: 'DIN CondensedBold';
+    font-size: 3.5rem;
+    text-transform: uppercase;
+  }
+
+  .product-single__prices{
+    font-family: 'Gotham Medium';
+    font-size: 1.8rem;
+    padding-bottom: 3.5rem;
+    border-bottom: 1px solid #ededed;
+    color: #55595a;
+  }
+
+  .product-description{
+    font-size: 1.5rem;
+    padding: 3.5rem 0;
+    border-bottom: 1px solid #ededed;
+
+    .readmore{
+      font-family: 'Gotham Book';
+      display: block;
+      margin-top: 2.5rem;
+      text-transform: uppercase;
+      color: #333332;
+      i{
+        margin-left: 3rem;
+      }
+    }
+  }
+
+  #options, #actions, #swatches{
+    padding: 4rem 0;
+    border-bottom: 1px solid #ededed;
+
+  }
+
+  #swatches{
+    font-size: 1.5rem;
+
+    .swatch-title{
+      text-transform: uppercase;
+      color: #333332;
+    }
+
+    .swatch-selected{
+      font-family: 'Gotham Book';
+    }
+  }
+
+  label{
+    font-size: 1.5rem;
+    line-height: 1.5rem;
+    margin-bottom: 1.5rem;
+    font-family: 'Gotham Medium';
+    color: #333332;
+    text-transform: uppercase;
+    display: block;
+  }
+
+  .selector-wrapper{ margin-right: 1rem; }
+
+  .product-single__quantity .quantity-selector, .single-option-selector {
+    width: 100%; 
+    background: #fff url("../assets/select-icon.png") no-repeat scroll right 10px center;
+    border: 1px solid #b4b6b7; 
+    color: #333332; 
+    font-family: "Gotham Book";
+    font-size: 1.5rem; 
+    outline: none;
+   }
+
+
+  .wishlist-pro-wrapper a{
+    font-family: 'Gotham Medium';
+    background-color:#ededed; 
+    color:#333332!important; 
+    display:block;
+    text-align:center;
+    text-transform: uppercase;
+    line-height: 1.5rem;
+    margin-top: 1.5rem;
+   }
+
+
+  ul.tabs
+  {
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+    display: table;
+    width: 100%;
+
+    li{ 
+      font-family: 'Gotham Medium';
+      font-size: 1.5rem; 
+      color:#333332;
+      text-transform: uppercase;
+      cursor: pointer; 
+      display: table-cell;
+
+      &:last-child{
+        margin-right: 0;
+      }
+
+      &.current{
+        .tab-label .bottom-bar{
+          display: block;
+        }
+      }
+
+      .tab-label
+      {
+        padding-top: 4rem;
+        padding-bottom: 3rem;
+        display: inline-block;
+        position: relative;
+
+        span{
+          text-decoration: underline;
+        }
+
+        .bottom-bar{
+          display: none;
+          position: absolute;
+          width: 100%;
+          bottom: 0;
+          left: 0;
+          border-top: 1px solid #ededed;
+          border-bottom: 1rem solid #ededed;
+          padding-bottom: 1rem;
+          margin-top: 2rem;
+        }
+      }
+    }
+  }
+
+  .displayTabs{
+    font-size: 1.6rem; 
+    font-family: 'Gotham Book';
+    border:0; 
+    line-height:19px; 
+    margin:0; 
+    padding:0;
+    color:#333332;
+    background: #ededed;
+
+    .tab-content{
+      padding: 6rem 0;
+      background: #ededed;
+      display: none;
+
+      &.current{
+        display: block;
+      }
+    }
+
+    ul{
+      font-family: 'Helvetica Neue';
+      list-style: disc;
+      li{
+        margin-bottom: 1.5rem;
+        margin-left: 1.5rem;
+        padding-left: 1.2rem;
+        font-size: 1.6rem;
+        line-height: 1.6rem;
+      }
+    }
+
+    h1{
+      font-size: 3.5rem; 
+      margin-bottom: 3.5rem;
+      font-family: 'DIN CondensedBold';
+      text-transform: uppercase;
+    }
+    .spr-container{padding:0!important; border:0!important;}
+    .spr-header-title{font-size: 3.5rem; text-transform: uppercase; line-height: 3.5rem; margin-bottom: 4rem;}
+  } 
+
+  #product-slider{
+    overflow: hidden;
+    max-height: 66.3rem;
+    background: #fff;
+    img{
+      width: auto;
+      height: 100%;
+    }
+  }
+
+  .swiper-buttons{
+    height: 4.5rem;
+    z-index: 99;
+  }
+
+  .swiper-pagination-bullets{
+    bottom: 2rem!important;
+    z-index: 99;
+    .swiper-pagination-bullet{
+      margin: 0 0.7rem;
+      width: 1.2rem;
+      height: 1.2rem;
+      cursor: pointer;
+    }
+  }
+
+  .swiper-button-prev, .swiper-button-next{
+    background: #ededed;
+    color: #808080;
+    font-size: 3rem;
+    line-height: 4.5rem;
+    border-radius: 0.5rem;
+    width: 4.5rem;
+    height: 4.5rem;
+    text-align: center;
+    cursor: pointer;
+  }
+
+  .related_products{
+    background-color:#ededed;
+    padding-top: 4rem;
+    
+    .section-header{
+      margin: 0;
+    }
+
+    .section-header__title{
+      font-family: 'DIN CondensedBold';
+      font-size: 3rem;
+      line-height: 3rem;
+      text-transform: uppercase;
+      padding-bottom: 1rem;
+      border-bottom: 3px solid #f5f5f5;
+      margin: 0;
+    }
+
+    .product-item:hover{
+      background: #fff;
+      .product-info{
+        padding: 0 1.5rem;
+      }
+
+      p{
+        opacity: 1;
+      }
+    }
+  }
+}

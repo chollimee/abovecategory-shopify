@@ -1,0 +1,70 @@
+
+<!-- Filter Menu brought to you by Shopify Power Tools -->
+{% assign pt_refine_text = settings.pt_refine_text | default: 'Refine' %}
+{% assign pt_clear_text = settings.pt_clear_text | default: 'clear' %}
+{% assign pt_view_all_text = settings.pt_view_all_text | default: 'view all' %}
+{% assign pt_collection_text = settings.pt_collection_text | default: 'Collection' %}
+<style type="text/css">
+{{ shop.metafields.pt_filter_css['system'] }}
+{{ shop.metafields.pt_filter_css['user'] }}
+</style>
+<div class="heading-results clearfix">
+    <div class="numberOfResult pull-left">{{ collection.products_count }} Results</div>
+
+    <div class="filter-menu filter-selected-{{ collection.handle }}{% for tag in current_tags %} filter-selected-{{ tag | handleize }}{% endfor %} clearfix pull-left">
+      {% unless collection.handle != nil and template contains 'collection' %}
+
+        {% for menu_header in shop.metafields.pt_filter_menu %}
+          {% assign menu_items = menu_header.last | split: ',' %}
+          {% assign header_handle = menu_header.first | split: '-' %}
+          {% assign header_handle = menu_header.first | replace: header_handle.first, '' %}
+          <span class="nav{{ header_handle }}">
+              {% for menu_item in menu_items %}
+                {% assign filter_collection = collections[menu_item] %}
+                {% if filter_collection and filter_collection.all_products_count != '' and filter_collection.all_products_count > 0 and filter_collection.title != nil and filter_collection.title != '' %}
+                  <a href="/collections/{{ menu_item }}" title="{{ filter_collection.title | escape }}"><i class="check-icon"></i> {{ filter_collection.title | escape }}</a>{% unless current_tags %}<span class="collection-count">({{ filter_collection.all_products_count }})</span>{% endunless %}
+                {% endif %}
+              {% endfor %}
+          </span>    
+        {% endfor %}
+
+      {% else%}
+
+        {% assign tag_list = collection.tags %}
+        {% assign current_collection_handle = collection.handle %}
+
+        {% if collection.metafields.sort_primary.collection_handle %}
+          {% assign current_collection_handle = collections[collection.metafields.sort_primary.collection_handle].handle %}
+        {% endif %}
+
+        {% for menu_header in shop.metafields.pt_filter_menu %}
+          {% assign has_items = false %}
+          {% assign menu_items = menu_header.last | split: ',' %}
+
+          {% for menu_item in menu_items %}
+            {% if tag_list contains menu_item or current_tags contains menu_item or current_collection_handle == menu_item %}{% assign has_items = true %}{% endif %}
+          {% endfor %}
+
+          {% if has_items %}
+            {% assign header_handle = menu_header.first | split: '-' %}
+            {% assign header_handle = menu_header.first | replace: header_handle.first, '' %}
+               
+              <span class="nav{{ header_handle }}">
+                  {% for menu_item in menu_items %}
+                      {% assign filter_collection = collections[menu_item] %}
+                      {% if filter_collection and filter_collection.title != nil and filter_collection.title != '' %}
+                          {% if tag_list contains menu_item or current_tags contains menu_item or current_collection_handle == menu_item %}
+                              {% if current_tags contains menu_item %}
+                                  {{ filter_collection.title | append: '<i class="check-icon removeFilter"></i> ' | link_to_remove_tag: menu_item }}
+                              {% endif %}
+                          {% endif %}
+                      {% endif %}
+                  {% endfor %}
+              </span>
+          {% endif %}
+        {% endfor %}
+         
+      {% endunless %}  
+    </div>
+
+</div>

@@ -1,0 +1,4 @@
+/development/node_modules
+/development/log
+/development/bower_components
+.DS_Store

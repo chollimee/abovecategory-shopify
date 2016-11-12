@@ -1,0 +1,78 @@
+<header id="mobile-masthead" class="hidden-lg-up">
+  <div id="navbar-main-area">
+    <nav id="navbar-main" class="navbar navbar-default navbar-fixed-top bg-faded" role="navigation">
+      <div class="navbar-header">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-xs-4">
+              <a role="button" id="toggle-menu-button">
+                &#9776;
+              </a>
+            </div>
+
+            <div class="col-xs-4">
+              <div id="site-logo" class="text-xs-center">
+                <a id="logo" href="" rel="home"><img src="{{ 'img-logo.png' | asset_url }}"/></a>
+              </div>
+            </div>
+            </div>
+          </div>
+        </div>
+    </nav>
+  </div>
+</header>
+
+<header id="site-masthead" class="hidden-md-down">
+  <div id="site-branding" class="container-fluid">
+    <div class="row">
+      <div class="col-xs-6 col-sm-4 offset-sm-4">
+        <div id="site-logo" class="text-sm-center">
+          <a id="logo" href="/" rel="home"><img src="{{ 'img-logo.png' | asset_url }}"/></a>
+        </div>
+      </div>
+
+      <div class="col-xs-6 col-sm-4">
+        <form role="search" method="get" id="search-form" class="pull-sm-right" action="">
+          <div class="input-group search">
+            <span class="input-group-addon">
+              <i class="fa fa-search"></i>
+            </span>
+            <input type="text" value="" name="s" id="s" class="form-control" placeholder="Search"/>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div id="site-navigation">
+    <div class="text-block">
+      <div class="row">
+        <div class="col-md-3">
+          <div id="welcome-text">
+            WELCOME TO ABOVE CATEGORY CYCLING
+          </div>
+        </div>
+        <div class="col-md-6">
+          <nav id="main-menu">
+            {% include 'site-nav' %}
+          </nav>
+        </div>
+
+        <div class="col-md-3">
+          <div id="cart-links" class="text-sm-right">
+            {% if customer  %}
+              <a href="/account">My Account</a>
+              {{ 'layout.customer.log_out' | t | customer_logout_link }}
+            {% else %}
+              {{ 'Join' | customer_register_link }}
+              <span>/</span>
+              {{ 'Log in' | customer_login_link }}
+            {% endif %}      
+            <a href="" class="cart"><i class="fa fa-shopping-cart"></i></a>
+            {% include 'cart-nav' %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>

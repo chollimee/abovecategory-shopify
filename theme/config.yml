@@ -1,0 +1,22 @@
+production:
+  theme_id:
+  password: 3d4fafcf657c82a0f55a6df7732d78d5
+  store: abovecategory.myshopify.com
+staging:
+  theme_id:
+  password: 3d4fafcf657c82a0f55a6df7732d78d5
+  store: abovecategory.myshopify.com
+development:
+  theme_id: 159950410
+  password: 3d4fafcf657c82a0f55a6df7732d78d5
+  store: abovecategory.myshopify.com
+  #ignores:
+  #  - myignores
+  ignore_files:
+    - development
+    - config/settings.html
+    - config/settings_data.json
+    - config/settings_schema.json
+  refill_rate: 2
+  bucket_size: 40
+  concurrency: 4

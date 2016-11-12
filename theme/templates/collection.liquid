@@ -1,0 +1,204 @@
+<style>
+/* some default styles */
+.filters { list-style-type: none; }
+.filter { float: left; margin-right: 15px; }
+.filter label { display: block; margin: 10px 0; }
+.filter select { max-width: 200px; }
+.coll-picker-collections, .coll-filter-size { cursor: pointer; }
+</style>
+
+<script>
+  /* Product Tag Filters - Good for any number of filters on any type of collection pages */
+  jQuery(document).ready(function(){
+    var collFilters = jQuery('.coll-filter-size');
+    collFilters.click(function() {
+      var dataValue = jQuery(this).data("val");
+      var newTags = [];
+      collFilters.each(function() {      
+        if (dataValue) {
+          newTags.push(dataValue);
+        }
+      });
+      if (newTags.length) {
+        var query = newTags.join('+');
+        window.location.href = jQuery('{{ 'tag' | link_to_tag: 'tag' }}').attr('href').replace('tag', query);
+      }
+      else {
+        {% if collection.handle %}
+        window.location.href = '/collections/{{ collection.handle }}';
+        {% elsif collection.products.first.type == collection.title %}
+        window.location.href = '{{ collection.title | url_for_type }}';
+        {% elsif collection.products.first.vendor == collection.title %}
+        window.location.href = '{{ collection.title | url_for_vendor }}';
+        {% endif %}
+      }
+    });
+  });
+</script>
+
+<script>
+  /* Product Tag Filters - Good for any number of filters on any type of collection page.
+     Give you product tag filter select element a class of coll-filter.
+     Give your collection select a class of coll-picker.
+     Brought to you by Caroline Schnapp. */
+  Shopify.queryParams = {};
+  if (location.search.length) {
+    for (var aKeyValue, i = 0, aCouples = location.search.substr(1).split('&'); i < aCouples.length; i++) {
+      aKeyValue = aCouples[i].split('=');
+      if (aKeyValue.length > 1) {
+        Shopify.queryParams[decodeURIComponent(aKeyValue[0])] = decodeURIComponent(aKeyValue[1]);
+      }
+    }
+  }
+  jQuery(document).ready(function(){
+   jQuery('.coll-picker-collections').click(function() {
+    var dataValue = jQuery(this).data("val");
+    if (dataValue) {
+      var a = location.href = '/collections/' + dataValue;
+    }
+    else {
+      location.href = '/collections/all';
+    }
+  });
+    
+  var collFilters = jQuery('.coll-filter');
+  collFilters.change(function() {
+    delete Shopify.queryParams.page;
+    var newTags = [];
+    collFilters.each(function() {
+      if (jQuery(this).val()) {
+        newTags.push(jQuery(this).val());
+      }
+    });
+    {% if collection.handle %}
+    var newURL = '/collections/{{ collection.handle }}';
+    if (newTags.length) {
+      newURL += '/' + newTags.join('+');
+    }
+    var search = jQuery.param(Shopify.queryParams);
+    if (search.length) {
+      newURL += '?' + search;
+    }
+    location.href = newURL;
+    {% else %}
+    if (newTags.length) {
+      Shopify.queryParams.constraint = newTags.join('+');
+    }
+    else {
+      delete Shopify.queryParams.constraint;
+    }
+    location.search = jQuery.param(Shopify.queryParams);
+    {% endif %}
+  });
+  });
+</script>
+
+{% assign products_per_row = settings.collections_products_per_row %}
+{% assign rows = settings.collections_rows %}
+{% assign total_products = products_per_row | times: rows %}
+
+<div class="collection">
+  {% paginate collection.products by total_products %}
+
+  {% if collection.image %}
+    <div id="featured" class="featured content-relative">
+        <img class="content-centered-md-down" src="{{ collection | img_url: '2048x2048'}}">
+        {% if collection.description != blank %}
+        <div class="container">
+          <div class="content-centered-vertical">
+            <div class="offset-md-1 content-block text-sm-center text-md-left">
+              {{ collection.description }}
+              <div class="content-relative">
+                <a href="#bottom" id="screen-to-bottom" class="content-centered-horizontal icon-round"><i class="fa fa-angle-down"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endif %}
+    </div>
+  {% else %}
+    <div class="text-center">
+      <img src="{{ collection.products.first | img_url: 'small' }}"  alt="{{ collection.title | escape }}" display="block"/>
+    </div>
+  {% endif %}
+
+  <div class="section-inner container">
+    <div class="section-header section-header--breadcrumb">
+      {% include 'breadcrumb' %}
+    </div>
+
+    <div id="main">
+      <div class="row">
+        <div class="sidebar col-xs-12 col-md-5 col-lg-3">
+          {% include 'filter-menu' %}
+        </div>
+        
+      	<div class="right-column col-xs-12 col-md-7 col-lg-9">
+          <header id="heading" class="section-header">
+
+              {% if settings.collections_tags_enable or settings.collections_sort_enable %}
+                  <div class="filter-sort pull-lg-right">
+                    {% if settings.collections_sort_enable %}
+                      {% include 'collection-sorting' %}
+                    {% endif %}
+                  </div>
+                  <div class="filter-con pull-lg-left">
+                    {% include 'filter-menu-selected' %}
+                  </div>
+              {% else %}
+                <div class="col-sm-12">
+                  <div class="filter-con ">
+                    {% include 'filter-menu-selected' %}
+                  </div>
+                </div>
+              {% endif %}
+          </header>
+
+          <div id="content">
+            <div class="row">
+              {% assign product_index = 0 %}
+              {% for product in collection.products %}
+                {% assign product_index = product_index | plus: 1 %}
+                {% assign break_point_column_3 = product_index | modulo: 3 %}
+                {% assign break_point_column_2 = product_index | modulo: 2 %}
+
+                {% include 'product-grid-item' %}
+
+                {% if collection.products_count == 0 %}
+                  {% unless emptyState %}
+                    {{ 'theme-onboarding.css' | global_asset_url | stylesheet_tag }}
+                    {% assign emptyState = true %}
+                  {% endunless %}
+                  <div class="grid__item">
+                    <p><em>{{ 'collections.general.no_matches' | t }}</em></p>
+                  </div>
+                {% endif %}
+
+                {% if break_point_column_3 == 0 %}
+                  <div class="clearfix hidden-lg-down"></div>
+                {% endif %}
+
+                {% if break_point_column_2 == 0 %}
+                  <div class="clearfix hidden-md-up"></div>
+                {% endif %}
+
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="text-xs-center content-after content-relative screen-to-top-block">
+          <a href="#top" class="icon-round content-centered-horizontal" id="screen-to-top"><i class="fa fa-angle-up"></i></a>
+      </div>
+    </div>
+  </div>
+
+  {% if paginate.pages > 1 %}
+    <div class="text-center">
+      {% include 'pagination-custom' %}
+    </div>
+  {% endif %}
+
+  {% endpaginate %}
+</div>
+

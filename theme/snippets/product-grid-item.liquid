@@ -1,0 +1,92 @@
+{% unless grid_item_width %}
+  {% assign grid_item_width = 'large--one-third medium-down--one-half' %}
+{% endunless %}
+
+{% unless current_collection == blank %}
+  {% assign current_collection = collection %}
+{% endunless %}
+
+{% assign on_sale = false %}
+{% assign sale_text = 'products.product.sale' | t %}
+{% if product.compare_at_price > product.price %}
+  {% assign on_sale = true %}
+{% endif %}
+
+{% assign sold_out = true %}
+{% assign sold_out_text = 'products.product.sold_out' | t %}
+{% if product.available %}
+  {% assign sold_out = false %}
+{% endif %}
+
+<div class="col-sm-6 col-md-6 col-lg-4">
+  <div class="product-item {% if sold_out %} sold-out{% endif %}{% if on_sale %} on-sale{% endif %}">
+    <div class="product-image">
+      <a href="{{ product.url | within: collection }}" class="grid-link text-center">
+        <span class="grid-link__image grid-link__image--product">
+          {% if on_sale and settings.collections_show_sale_circle %}
+            <span class="badge badge--sale">
+              <span class="badge__text{% if sale_text.size > 7 %} badge__text--small{% endif %}">{{ 'products.product.sale' | t }}</span>
+            </span>
+          {% else %}
+        {% assign date_published = product.published_at | date:'%s' %}
+        {% assign date_now = 'now' | date:'%s' %}
+        {% assign date_difference = date_now | minus: date_published %}
+         
+        {% if date_difference < 2592000 %}<span class="badge-fresh">NEW</span>{% endif %}
+          {% endif %}
+          {% if sold_out and settings.collections_show_sold_out_circle %}
+            <span class="badge badge--sold-out">
+              <span class="badge__text{% if sold_out_text.size > 9 %} badge__text--small{% endif %}">{{ 'products.product.sold_out' | t }}</span>
+            </span>
+          {% endif %}
+          <span class="grid-link__image-centered product-image">
+            <img src="{{ product.featured_image.src | img_url: 'grande' }}" alt="{{ product.featured_image.alt | escape }}">
+          </span>
+        </span>
+      </a>
+
+      
+        {% for option in product.options %}
+            {% if option == 'Color' %}
+              {% assign index = forloop.index0 %}
+              {% assign colorlist = '' %}
+              {% assign color = '' %}
+              <div class="product-options">
+                <div class="option-colors text-center">
+                  <p>Colors Available</p> 
+                  {% for variant in product.variants %}
+                      {% capture color %}
+                          {{ variant.options[index] }}
+                      {% endcapture %} 
+
+                      {% unless colorlist contains color %}
+                      <a class="{{color}}" style="background-color: {{ color }};" href="{{ product.url | within: collection }}?variant={{variant.id}}">{{ color }}</a>
+                          {% capture tempList %}
+                          {{colorlist | append: color | append: ''}}
+                          {% endcapture %}
+                          {% assign colorlist = tempList %}
+                      {% endunless %}
+                  {% endfor %}
+                </div>
+              </div>
+            {% endif %}
+        {% endfor %}  
+
+    </div>
+
+    <div class="product-info">
+      <p class="product-title">{{ product.title }}</p>
+      <p class="chpt">chpt. /// castelli</p>
+      {% comment %}
+      <p class="product-vendor">{{ product.vendor }}</p>
+      {% endcomment %}
+      <p class="product-meta">
+        {% capture price %}{{ product.price | money }}{% endcapture %}
+        {% if on_sale %}
+        <s class="grid-link__sale_price">{{ product.compare_at_price | money }}</s>
+        {% endif %}
+        {% if product.price_varies %}{{ 'products.general.from_html' | t: price: price }}{% else %}{{ price }}{% endif %}
+      </p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,345 @@
+@import "bower_components/bootstrap/scss/variables";
+@import "bower_components/bootstrap/scss/mixins";
+@import "variables";
+
+.container-acc{
+  max-width: 132.8rem;
+  margin: 0 auto;
+} 
+
+
+@media (min-width: 1358px){
+  .container {
+    max-width: 132.8rem;
+  }
+}
+
+body{
+	font-family: 'Helvetica Neue', 'Arial';
+	background: $color-acc-footer!important;
+}
+
+header{
+  font-family: "Gotham Book";
+}
+
+main{
+  min-height: 50vh;
+}
+
+strong{
+	font-family: 'Gotham Medium';
+}
+
+a{
+	&:hover{
+		cursor: pointer;
+	}
+}
+
+ul{
+	list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+h2{
+	font-size: 3rem;
+	font-family: 'DIN Mod';
+}
+
+#site-branding{
+	#site-logo{
+		padding: 2rem;
+		padding-bottom:1.2rem;
+	}
+
+	#logo{
+		img{
+			width: 6rem;
+		}
+	}
+}
+
+.input-group.search{
+	.input-group-addon{
+		font-size: 1.6rem;
+		padding-left: 2rem;
+	}
+	
+	border: 1px solid #ededed;
+	input{
+		height: 3.5rem;
+		font-size: 1.8rem;
+		border: none;
+	}
+}
+
+#search-form{
+	margin-top: 3.5rem;
+	margin-right: 3rem;
+	margin-bottom: 1rem;
+	width: 20rem;
+	.input-group{
+		@include border-radius(0.5rem);
+	}
+
+  input:focus{
+    outline: none;
+    border: none;
+  }
+}
+
+nav{
+	ul{
+		padding: 0;
+		margin: 0;
+
+		li{
+			margin: 0;
+			padding: 0;
+		}
+	}
+}
+
+.site-footer{
+	padding-top: 5rem;
+	background: $color-acc-footer-bg;
+	min-height: 15rem;
+	font-size: 1.4rem;
+	color: $color-acc-footer;
+	
+	.site-links{
+		ul{ margin: 0; padding: 0; }
+		li{ margin: 0; padding: 0; list-style: none; margin-bottom: 1.8rem; }
+		a{
+
+			font-size: 1.8rem;
+			color: $color-acc-footer;
+			font-family: 'DIN Mod';
+      
+		}
+	}
+	.site-info{
+		border-top: 1px solid #474747;
+		margin-top: 4rem;
+		padding: 1.8rem 0;
+
+		.policy-links{
+			margin-bottom: 1rem;
+		}
+
+		a{
+			color: $color-acc-footer;
+
+      padding-left: 6rem;
+      &:first-child{
+        padding-left: 0;
+      }
+
+		}
+	}
+}
+
+.collapse{
+	overflow: hidden;
+}
+
+img{
+	max-width: 100%;
+}
+
+.breadcrumb{
+  font-size: 1.267rem;
+}
+
+#toggle-menu-button{
+  font-size: 2.2rem;
+  color: #000;
+  text-decoration: none;
+  &:hover{
+    text-decoration: none;
+  }
+}
+
+#page{
+  position: relative;
+  overflow-x: hidden;
+}
+
+#bread-crumbs{
+  min-height: 4.2rem;
+  line-height: 4.2rem;
+  text-transform: uppercase;
+
+  .crumb{
+    padding-right: 1rem;
+  }
+
+  .crumb-step1{
+    font-family: 'Gotham Light';
+  }
+
+  .crumb-angle{
+    font-family: 'Gotham Book';
+  }
+
+  .crumb-step2{
+    font-family: 'Gotham Medium';
+  }
+}
+
+@media only screen and (max-width: 1328px){
+  .container-acc{
+    margin: 0 5rem;
+  } 
+}
+
+.main-content{
+  margin: 0;
+}
+
+.section-header--breadcrumb {
+  border-bottom: 4px solid #f5f5f5;
+  padding: 1.5rem 0 1rem 5rem;
+  margin-bottom: 3rem;
+}
+
+.right-column{
+  .numberOfResult{ 
+    font-size: 1.5rem; 
+    color: #333332; 
+    font-family: 'Gotham Medium';
+    text-transform: lowercase; 
+    border-right:1px solid #e8e7e5; 
+    padding-right: 4rem;
+    margin-right: 4.5rem;
+  }
+
+  .filters-heading{
+    font-size: 1.5rem; 
+    color:#333332;  
+    font-family: 'Gotham Medium';
+    margin-right: 2rem;
+  }
+
+  .heading-results{
+    line-height: 2.8rem;
+    margin: 0.5rem 0;
+
+    a{
+      font-family: 'Gotham Book';
+      font-size: 1.5rem;
+      font-weight:normal;
+      color: #333332;
+      margin-right: 2rem;
+      text-decoration: none;
+
+      &:hover{
+        text-decoration: none;
+      }
+
+      i.check-icon{ 
+        background:url(../assets/icon-remove-filter.png) center center no-repeat;
+        width:18px;
+        height: 18px;
+        margin-left: 1rem;
+      }
+    }
+  }
+}
+
+.col-expand-both{
+  margin-left: -1.5rem!important;
+  margin-right: -1.5rem!important;
+}
+
+.col-expand-right{
+  margin-right: -1.5rem!important;
+}
+
+.col-expand-left{
+  margin-left: -1.5rem!important;
+}
+
+
+.content-relative{
+  position: relative;
+}
+
+.content-full-width{
+  width: 100%;
+}
+
+#{$viewport-lg-down}{
+  .content-centered-lg-down
+  {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+#{$viewport-xl-down}{
+  .content-centered-xl-down
+  {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+#{$viewport-md-down}{
+  .content-centered-md-down
+  {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+#{$viewport-md-down}{
+  .featured{
+    min-height: 30vh;
+    img{
+      height: 100%;
+      width: auto;
+      max-width: none;
+    }
+  }
+}
+
+
+.center, .content-centered{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.center-horizontal, .content-centered-horizontal{
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+
+.center-vertical, .content-centered-vertical{
+  position: absolute;
+  top: 50%;
+  transform: translate(0%, -50%);
+  width: 100%;
+}
+
+.btn-acc{
+  font-family: 'Gotham Medium';
+  font-size: 1.5rem;
+  line-height: 1.5rem;
+  width: 100%;
+  text-transform: uppercase;
+  padding: 1.5rem 0;
+  background: #7bc4d2;
+  outline: none;
+}

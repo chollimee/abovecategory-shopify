@@ -1,0 +1,34 @@
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+$(document).ready(function(){
+	$('ul.tabs li').click(function(){
+		var tab_id = $(this).attr('data-tab');
+		$('ul.tabs li').removeClass('current');
+		$('.tab-content').removeClass('current');
+		$(this).addClass('current');
+		$("#"+tab_id).addClass('current');
+	});
+});
+</script>
+<div>
+	<ul class="tabs">
+		<li class="tab-link text-left current" data-tab="tab-1">
+			<span class="tab-label">
+				<span>Details</span> & <span>Care</span>
+				<span class="bottom-bar"></span>
+			</span>
+		</li>
+		<li class="tab-link text-center" data-tab="tab-2">
+			<span class="tab-label">
+				<span>Sizing</span>
+				<span class="bottom-bar"></span>
+			</span>
+		</li>
+		<li class="tab-link text-right" data-tab="tab-3">
+			<span class="tab-label">
+				<span>Articles & Reviews</span>
+				<span class="bottom-bar"></span>
+			</span>
+		</li>
+	</ul>
+</div>

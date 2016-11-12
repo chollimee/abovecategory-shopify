@@ -1,0 +1,27 @@
+{
+  "name": "abovecategorycycling",
+  "version": "0.1.0",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components"
+  ],
+  "dependencies": {
+    "react": "~0.10.0",
+    "bootstrap": "v4.0.0-alpha.4",
+    "components-font-awesome": "~4.6.3",
+    "sidebars": "~2.0.2",
+    "responsive-toolkit": "~2.6.3",
+    "swiper": "3.x.x",
+    "metisMenu": "1.x.x",
+    "underscore": "1.8.3",
+    "uri.js": "1.18.1",
+    "shopify-cartjs": "~0.4.0"
+
+  },
+  "overrides": {
+    "react": {
+      "main": "react-with-addons.js"
+    }
+  }
+}

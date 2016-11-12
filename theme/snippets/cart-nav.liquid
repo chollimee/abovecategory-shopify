@@ -1,0 +1,78 @@
+<style>
+.cart-nav-price {float: right; position: relative; }
+.dropbtn { color: white; font-size: 16px; border: none; cursor: pointer; }
+.dropdown { position: relative; display: inline-block; }
+.dropdown-content { display: none; position: absolute; background-color: #f9f9f9; min-width: 160px; overflow: auto; right: 0; }
+.dropdown a:hover { background-color: #f1f1f1; }
+.show { display:block; }
+#cart-nav img { float: left; position: relative; right: 10px; top: 10px; width: 112px; }
+#cart-nav a { bottom: 7px; color: black !important; position: relative; width: 100%; top: 5px; }
+#myDropdown { width: 374px; z-index: 99; }  
+</style>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+function myCartFunction() {
+    document.getElementById("myDropdown").classList.toggle("show");
+}
+// Close the dropdown if the user clicks outside of it
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+</script>
+<div class="dropdown">
+	<a href="javascript:void();" class="cart-page-link" id="cartButton">
+		<span onclick="myCartFunction()" class="dropbtn cart-icon" aria-hidden="true" ></span>
+	</a>
+	<div id="myDropdown" class="dropdown-content">
+		<ul>
+			<li>
+				{% comment %}This is your /cart template.{% endcomment %}
+				{% if cart.item_count > 0 %}
+					{% comment %}Loop through products in the cart{% endcomment %}
+					{% for item in cart.items %}
+						<div id="cart-nav">
+							<div>
+								<img class="cart-nav-img" src="{{ item | img_url: 'medium' }}" alt="{{ item.title | escape }}">
+							</div>
+							<div>
+								<a href="{{ item.url }}">  <h3>{{ item.product.title }}</h3></a>
+								{% unless item.variant.title contains 'Default' %}
+									<span>QTY:  {{ item.quantity }} </span>
+									<span>Color: {{ item.variant.option1}} </span>
+									<span>Size: {{ item.variant.option2}} </span>
+								{% endunless %}
+								{% comment %} <!-- product total --> 
+									<span class="h5">
+										{% if item.original_line_price != item.line_price %}
+											<small class="cart-item__original-price"><s>{{ item.original_line_price | money }}</s></small>
+										{% endif %}
+										{{ item.line_price | money }}
+									</span>
+								{% endcomment %}
+							</div>
+							<div  class="cart-nav-price"><span>{{ item.price | money }}</span></div>        
+							
+						</div>
+					{% endfor %}   
+					<div class="cart__row">        
+						<span class="h5 cart__subtotal">SUBTOTAL WITH FREE SHIPPING: {{ cart.total_price | money }}</span>
+						<a href="/cart" class="update-cart">View Cart</a>
+					</div>
+				{% else %} 
+					{% comment %}The cart is empty{% endcomment %} 
+					<p>{{ 'cart.general.empty' | t }}</p>
+					<p>{{ 'cart.general.continue_browsing_html' | t }}</p>
+				{% endif %}        
+			</li>    
+		</ul>
+	</div>
+</div>
