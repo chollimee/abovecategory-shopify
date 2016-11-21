@@ -73,7 +73,7 @@
   {{ 'swatchesnew.css' | asset_url | stylesheet_tag }}
 
   <script type="text/javascript">
-    var app = require("scripts/App.js");
+    var App = require("scripts/App.js");
 
     $(function(){
       var cart = {{ cart | json }};
@@ -83,11 +83,10 @@
       {% endfor %}
 
       CartJS.init(cart, {
-          "dataAPI": false,
           "requestBodyClass": "loading"
       });
 
-      app.initialize();
+      App.initialize();
     });
   </script>
 

@@ -60,7 +60,7 @@
                       {% endcapture %} 
 
                       {% unless colorlist contains color %}
-                      <a class="{{color}}" style="background-color: {{ color }};" href="{{ product.url | within: collection }}?variant={{variant.id}}">{{ color }}</a>
+                      <a class="{{color|handleize}}" style="background-color: {{ color | handleize }};" href="{{ product.url | within: collection }}?variant={{variant.id}}">{{ color }}</a>
                           {% capture tempList %}
                           {{colorlist | append: color | append: ''}}
                           {% endcapture %}
@@ -75,11 +75,8 @@
     </div>
 
     <div class="product-info">
-      <p class="product-title">{{ product.title }}</p>
-      <p class="chpt">chpt. /// castelli</p>
-      {% comment %}
+      <p class="product-title"><a href="{{ product.url | within: collection }}">{{ product.title }}</a></p>
       <p class="product-vendor">{{ product.vendor }}</p>
-      {% endcomment %}
       <p class="product-meta">
         {% capture price %}{{ product.price | money }}{% endcapture %}
         {% if on_sale %}

@@ -1,0 +1,30 @@
+{% if template contains 'product' %}
+  {% assign chart = product.type | handleize | append: "-size-chart" %}
+  {% assign product_chart = product.handle | append: "-size-chart" %}
+
+  {% unless pages[product_chart].empty? or pages[product_chart].content == blank %}
+    {{ pages[product_chart].content }}
+  {% else %}
+    {% unless pages[chart].empty? or pages[chart].content == blank %}
+      {% assign size_options = 'size,taille' | split: ',' %}
+      {% assign size_chart_text_link = 'Size chart' %}
+      {% assign has_size = false %}
+      {% assign size_index = 0 %}
+      {% for option in product.options %}
+        {% assign downcased_option = option | downcase %}
+        {% if has_size == false and size_options contains downcased_option %}
+          {% assign has_size = true %}
+          {% assign size_index = forloop.index0 %}
+        {% endif %}
+      {% endfor %}
+
+
+      {% if has_size %}
+
+      {{ pages[chart].content }}
+
+      {% endif %}
+
+    {% endunless %}
+  {% endunless %}
+{% endif %}

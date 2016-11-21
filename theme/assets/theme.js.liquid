@@ -198,6 +198,7 @@ theme.addToCartflip = function ($addToCartBtn) {
 };
 
 theme.enableAjax = function () {
+
   theme.cache.$addToCartBtn.bind('click', function(e) {
     e.preventDefault();
     $('.note.errors').remove();
@@ -217,6 +218,10 @@ theme.enableAjax = function () {
         data: $addToCartForm.serialize(),
         success: function(lineItem) {
           $.getJSON('/cart.js', function(cart) {
+            
+            var inlineCart = require("scripts/Cart.jsx");
+            inlineCart.update(cart.items);
+
             theme.cache.$cartCount.text(cart.item_count);
             $('.hidden-count').removeClass('hidden-count');
           });

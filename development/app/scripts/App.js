@@ -15,10 +15,12 @@ var App = {
 
         $(window).resize(function() {
             App.add_viewport_class();
+            App.resize();
         });
 
         $(document).ready(function() {
             App.add_viewport_class();
+            App.resize();
         });
     },
 
@@ -33,6 +35,15 @@ var App = {
             $("#page").animate({ scrollTop: $('#bottom').offset().top }, "slow");
             return true;
         });
+
+        $("a.scroll-to").click(function(){
+            target = $($(this).attr("href"));
+            $("#page").animate({ scrollTop: $(target).offset().top }, "slow");
+            return true;
+        });
+    },
+
+    resize: function(){
 
     },
 

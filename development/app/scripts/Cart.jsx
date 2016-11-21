@@ -30,12 +30,15 @@ class CartItem extends React.Component {
 
   render() {
     var options = []
+
+    /*
     if(this.props.item.variant_options){
       for(var i = 0; i < this.props.item.variant_options.length; i++)
       {
         options.push(<div className="item-option" key={i}><span>{this.props.item.product_options[i]}:</span> {this.props.item.variant_options[i]}</div>);
       }
     }
+    */
 
     return (
       <div className="item">
@@ -46,7 +49,7 @@ class CartItem extends React.Component {
           <div className="col-sm-6">
             <div className="item-title">{this.props.item.product_title}</div>
             <div className="item-qty item-option"><span>QTY:</span> {this.props.item.quantity}</div>
-            {options}
+            <div className="item-option">{this.props.item.variant_title}</div>
           </div>
 
           <div className="col-sm-3">
@@ -59,12 +62,23 @@ class CartItem extends React.Component {
 }
 
 var Cart = {
+  update: function(items){
+    ReactDOM.render(
+      <InlineCart items={items} />,
+      document.getElementById('inline-cart')
+    );
+  },
+
   initialize: function() {
 
     jQuery('#cart-links a.cart').bind('click', function(e){
       e.preventDefault();
       jQuery('#inline-cart').toggle();
       return false;
+    });
+
+    jQuery(document).on('cart.requestComplete', function(event, cart){
+      Cart.update(CartJS.cart.items);
     });
 
     jQuery(document).bind("click", function(e){
@@ -75,10 +89,7 @@ var Cart = {
       }
     });
 
-    ReactDOM.render(
-      <InlineCart items={CartJS.cart.items} />,
-      document.getElementById('inline-cart')
-    );
+    Cart.update(CartJS.cart.items);
   }
 }
 

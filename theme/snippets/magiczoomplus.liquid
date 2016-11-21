@@ -3,8 +3,8 @@
 {% assign MagicToolboxShowMessage = 'Yes' %}
 {% assign MagicToolboxMessage = 'Move your mouse over image or click to enlarge' %}
 {% assign MagicToolboxBigImageSize = 'master' %}
-{% assign MagicToolboxThumbnailImageSize = 'large' %}
-{% assign MagicToolboxSelectorImageSize = 'small' %}
+{% assign MagicToolboxThumbnailImageSize = '850x600' %}
+{% assign MagicToolboxSelectorImageSize = '100x100' %}
 {% assign MagicToolboxUseCustomWidth = 'No' %}
 {% assign MagicToolboxThumbnailImageWidth = '480' %}
 {% if MagicToolboxUseCustomWidth == 'Yes' %}
@@ -17,9 +17,13 @@
     {% endif %}
     
     <div class="MagicToolboxSelectorsContainer" {% if product.images.size < 2 %}style="display:none"{% endif %}>
-        {% for image in product.images limit:4 offset:0 %}
-     
+      {% for image in product.images offset:0 %}
+        
+        {% unless (image.alt contains "lifestyle") %}
+
         <a href="{{ image | product_img_url: MagicToolboxBigImageSize }}" data-zoom-id="zoom{{ product.id }}" data-image="{{ image | product_img_url: MagicToolboxThumbnailImageSize }}" title="{{ image.alt | escape }}"><img src="{{ image | product_img_url: MagicToolboxSelectorImageSize }}" alt="{{ image.alt | escape }}" /></a>
+
+        {% endunless %}
            
       {% endfor %}
     </div>

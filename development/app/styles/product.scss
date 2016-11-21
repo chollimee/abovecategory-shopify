@@ -1,8 +1,67 @@
+.mz-expand{
+  top: 0!important;
+  background: #fff!important;
+  .mz-expand-stage{
+    background: #fff!important;
+  }
+  .mz-caption{
+    display: none;
+  }
+  .mz-expand-thumbnails{
+    display: none;
+  }
+  .mz-image-stage{
+    padding-bottom: 20px!important;
+  }
+}
 .product-single{
+  .single-image{
+    margin-top: 8rem;
+
+    a.MagicZoomPlus{
+      display: block;
+      min-height: 50rem;
+      height: 100%;
+
+      figure.mz-figure{
+        max-height: 100%;
+      }
+
+      img{
+      }
+      .mz-hint{
+        display: none!important;
+      }
+    }
+
+    .MagicToolboxSelectorsContainer{
+      margin-top: 50px;
+
+      a {
+        display: block;
+        height: 100px;
+        background: #fff;
+        margin: 0!important;
+        margin-right: 0.5rem!important;
+
+        img:hover{
+            filter: none;
+        }
+        &.mz-thumb-selected{
+          filter: brightness(85%);
+          img{
+            filter: none;
+          }
+        }
+      }
+    }
+  }
+
   .product-single__title{
     font-family: 'DIN CondensedBold';
     font-size: 3.5rem;
     text-transform: uppercase;
+    margin-top: 8rem;
   }
 
   .product-single__prices{
@@ -15,8 +74,11 @@
 
   .product-description{
     font-size: 1.5rem;
-    padding: 3.5rem 0;
     border-bottom: 1px solid #ededed;
+
+    article{
+      padding: 3.5rem 0;
+    }
 
     .readmore{
       font-family: 'Gotham Book';
@@ -49,6 +111,10 @@
     }
   }
 
+  .tooltip{
+    display: none!important;
+  }
+
   label{
     font-size: 1.5rem;
     line-height: 1.5rem;
@@ -69,6 +135,7 @@
     font-family: "Gotham Book";
     font-size: 1.5rem; 
     outline: none;
+    margin-bottom: 1.5rem;
    }
 
 
@@ -147,7 +214,7 @@
     background: #ededed;
 
     .tab-content{
-      padding: 6rem 0;
+      padding: 6rem 0 6rem 0;
       background: #ededed;
       display: none;
 
@@ -183,8 +250,9 @@
     max-height: 66.3rem;
     background: #fff;
     img{
-      width: auto;
-      height: 100%;
+      max-width: 100%;
+      width: 100%;
+      height: auto;
     }
   }
 
@@ -243,6 +311,68 @@
       p{
         opacity: 1;
       }
+    }
+  }
+
+  .tab-content.product-reviews{
+    padding-bottom: 0;
+  }
+
+  #product-reviews{
+    margin-bottom: -6rem;
+    .items{
+      padding: 0 5rem;
+      padding-bottom: 7rem;
+      font-family: 'Helvetica Neue';
+
+      &.ac{
+        border-right: 1px solid #999;
+      }
+
+      .item{
+        border-bottom: 1px solid #999999;
+        margin-bottom: 4rem;
+
+        &:last-children{
+          margin-bottom: 1.5rem;
+        }
+      }
+
+      .view-all a{
+        font-family: 'Gotham Medium';
+        font-size: 1.5rem;
+        color: #999999;
+        i{
+          padding-left: 4.5rem;
+        }
+      }
+    }
+
+    h2{
+      font-family: 'DIN CondensedBold';
+      text-transform: uppercase;
+      color: #666666;
+      margin-bottom: 3rem;
+    }
+    p{
+      margin-bottom: 4rem;
+    }
+    a.btn{
+      width: auto;
+      padding-left: 3.8rem;
+      padding-right: 3.8rem;
+      i{
+        padding-left: 4rem;
+      }
+    }
+  }
+}
+
+
+.viewport-sm, .viewport-xs{
+  #product-reviews{
+    .items.ac{
+      border: none!important;
     }
   }
 }

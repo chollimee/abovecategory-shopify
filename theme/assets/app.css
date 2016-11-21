@@ -6094,6 +6094,11 @@ h2 {
   font-size: 3rem;
   font-family: 'DIN Mod'; }
 
+.grid {
+  max-width: 1328px;
+  margin: 0 auto;
+  padding: 0 2rem; }
+
 #site-branding #site-logo {
   padding: 2rem;
   padding-bottom: 1.2rem; }
@@ -6208,8 +6213,7 @@ img {
 
 .section-header--breadcrumb {
   border-bottom: 4px solid #f5f5f5;
-  padding: 1.5rem 0 1rem 5rem;
-  margin-bottom: 3rem; }
+  padding: 1.5rem 0 1rem 5rem; }
 
 .right-column .numberOfResult {
   font-size: 1.5rem;
@@ -6320,7 +6324,8 @@ img {
   font-family: 'Gotham Book'; }
 
 .cart .cart__row {
-  padding: 2rem; }
+  padding: 2rem;
+  font-size: 1.6rem; }
 
 #inline-cart {
   font-size: 1.6rem;
@@ -6393,7 +6398,8 @@ img {
     padding-bottom: 5rem; }
 
 .sidebar .filter-menu {
-  margin-right: 4rem; }
+  margin-right: 4rem;
+  margin-top: 3rem; }
 
 .sidebar h4 {
   font-family: 'Gotham Medium';
@@ -6506,6 +6512,95 @@ img {
 .product-item .product-title {
   font-family: 'DIN CondensedBold';
   font-size: 3rem; }
+  .product-item .product-title a {
+    font-family: 'DIN CondensedBold';
+    font-size: 3rem;
+    color: #333332;
+    text-decoration: none; }
+
+.lime-green {
+  background: url("color-lime-green.jpg"); }
+
+.clinique {
+  background: url("color-clinique.jpg"); }
+
+.antracite-lime {
+  background: url("color-antracite-lime.jpg"); }
+
+.ashley-blue {
+  background: url("color-ashley-blue.jpg"); }
+
+.black-green {
+  background: url("color-black-green.jpg"); }
+
+.black-light-blue {
+  background: url("color-black-light-blue.jpg"); }
+
+.black-lime {
+  background: url("color-black-lime.jpg"); }
+
+.black-orange {
+  background: url("color-black-orange.jpg"); }
+
+.black-pinstripe {
+  background: url("color-black-pinstripe.jpg"); }
+
+.black-red {
+  background: url("color-black-red.jpg"); }
+
+.black-white {
+  background: url("color-black-white.jpg"); }
+
+.flower-power {
+  background: url("color-flower-power.jpg"); }
+
+.hawaii {
+  background: url("color-hawaii.jpg"); }
+
+.innerspace {
+  background: url("color-innerspace.jpg"); }
+
+.light-blue {
+  background: url("color-light-blue.jpg"); }
+
+.matte-black {
+  background: url("color-matte-black.jpg"); }
+
+.matte-navy {
+  background: url("color-matte-navy.jpg"); }
+
+.navy-pink {
+  background: url("color-navy-pink.jpg"); }
+
+.navy-white {
+  background: url("color-navy-white.jpg"); }
+
+.persimmion {
+  background: url("color-persimmion.jpg"); }
+
+.pink-navy {
+  background: url("color-pink-navy.jpg"); }
+
+.white {
+  background: url("color-white.jpg"); }
+
+.white-light-blue {
+  background: url("color-white-light-blue.jpg"); }
+
+.white-lime-green {
+  background: url("color-white-lime-green.jpg"); }
+
+.white-navy {
+  background: url("color-white-navy.jpg"); }
+
+.white-orange {
+  background: url("color-white-orange.jpg"); }
+
+.white-pinstripe {
+  background: url("color-white-pinstripe.jpg"); }
+
+.white-red {
+  background: url("color-white-red.jpg"); }
 
 @font-face {
   font-family: 'DIN Mod';
@@ -6689,7 +6784,8 @@ nav ul {
 
 #navbar-main {
   height: 7rem;
-  padding: 0 1rem; }
+  padding: 0 1rem;
+  top: 0 !important; }
   #navbar-main #logo img {
     max-height: 5rem; }
 
@@ -6821,10 +6917,48 @@ nav ul {
 ul.site-nav > li > a .fa {
   display: none; }
 
+.mz-expand {
+  top: 0 !important;
+  background: #fff !important; }
+  .mz-expand .mz-expand-stage {
+    background: #fff !important; }
+  .mz-expand .mz-caption {
+    display: none; }
+  .mz-expand .mz-expand-thumbnails {
+    display: none; }
+  .mz-expand .mz-image-stage {
+    padding-bottom: 20px !important; }
+
+.product-single .single-image {
+  margin-top: 8rem; }
+  .product-single .single-image a.MagicZoomPlus {
+    display: block;
+    min-height: 50rem;
+    height: 100%; }
+    .product-single .single-image a.MagicZoomPlus figure.mz-figure {
+      max-height: 100%; }
+    .product-single .single-image a.MagicZoomPlus .mz-hint {
+      display: none !important; }
+  .product-single .single-image .MagicToolboxSelectorsContainer {
+    margin-top: 50px; }
+    .product-single .single-image .MagicToolboxSelectorsContainer a {
+      display: block;
+      height: 100px;
+      background: #fff;
+      margin: 0 !important;
+      margin-right: 0.5rem !important; }
+      .product-single .single-image .MagicToolboxSelectorsContainer a img:hover {
+        filter: none; }
+      .product-single .single-image .MagicToolboxSelectorsContainer a.mz-thumb-selected {
+        filter: brightness(85%); }
+        .product-single .single-image .MagicToolboxSelectorsContainer a.mz-thumb-selected img {
+          filter: none; }
+
 .product-single .product-single__title {
   font-family: 'DIN CondensedBold';
   font-size: 3.5rem;
-  text-transform: uppercase; }
+  text-transform: uppercase;
+  margin-top: 8rem; }
 
 .product-single .product-single__prices {
   font-family: 'Gotham Medium';
@@ -6835,8 +6969,9 @@ ul.site-nav > li > a .fa {
 
 .product-single .product-description {
   font-size: 1.5rem;
-  padding: 3.5rem 0;
   border-bottom: 1px solid #ededed; }
+  .product-single .product-description article {
+    padding: 3.5rem 0; }
   .product-single .product-description .readmore {
     font-family: 'Gotham Book';
     display: block;
@@ -6858,6 +6993,9 @@ ul.site-nav > li > a .fa {
   .product-single #swatches .swatch-selected {
     font-family: 'Gotham Book'; }
 
+.product-single .tooltip {
+  display: none !important; }
+
 .product-single label {
   font-size: 1.5rem;
   line-height: 1.5rem;
@@ -6877,7 +7015,8 @@ ul.site-nav > li > a .fa {
   color: #333332;
   font-family: "Gotham Book";
   font-size: 1.5rem;
-  outline: none; }
+  outline: none;
+  margin-bottom: 1.5rem; }
 
 .product-single .wishlist-pro-wrapper a {
   font-family: 'Gotham Medium';
@@ -6934,7 +7073,7 @@ ul.site-nav > li > a .fa {
   color: #333332;
   background: #ededed; }
   .product-single .displayTabs .tab-content {
-    padding: 6rem 0;
+    padding: 6rem 0 6rem 0;
     background: #ededed;
     display: none; }
     .product-single .displayTabs .tab-content.current {
@@ -6967,8 +7106,9 @@ ul.site-nav > li > a .fa {
   max-height: 66.3rem;
   background: #fff; }
   .product-single #product-slider img {
-    width: auto;
-    height: 100%; }
+    max-width: 100%;
+    width: 100%;
+    height: auto; }
 
 .product-single .swiper-buttons {
   height: 4.5rem;
@@ -7013,6 +7153,45 @@ ul.site-nav > li > a .fa {
       padding: 0 1.5rem; }
     .product-single .related_products .product-item:hover p {
       opacity: 1; }
+
+.product-single .tab-content.product-reviews {
+  padding-bottom: 0; }
+
+.product-single #product-reviews {
+  margin-bottom: -6rem; }
+  .product-single #product-reviews .items {
+    padding: 0 5rem;
+    padding-bottom: 7rem;
+    font-family: 'Helvetica Neue'; }
+    .product-single #product-reviews .items.ac {
+      border-right: 1px solid #999; }
+    .product-single #product-reviews .items .item {
+      border-bottom: 1px solid #999999;
+      margin-bottom: 4rem; }
+      .product-single #product-reviews .items .item:last-children {
+        margin-bottom: 1.5rem; }
+    .product-single #product-reviews .items .view-all a {
+      font-family: 'Gotham Medium';
+      font-size: 1.5rem;
+      color: #999999; }
+      .product-single #product-reviews .items .view-all a i {
+        padding-left: 4.5rem; }
+  .product-single #product-reviews h2 {
+    font-family: 'DIN CondensedBold';
+    text-transform: uppercase;
+    color: #666666;
+    margin-bottom: 3rem; }
+  .product-single #product-reviews p {
+    margin-bottom: 4rem; }
+  .product-single #product-reviews a.btn {
+    width: auto;
+    padding-left: 3.8rem;
+    padding-right: 3.8rem; }
+    .product-single #product-reviews a.btn i {
+      padding-left: 4rem; }
+
+.viewport-sm #product-reviews .items.ac, .viewport-xs #product-reviews .items.ac {
+  border: none !important; }
 
 /*
  * None of the CSS in this example is necessary for the base script to work properly. The only required CSS is the one shipped with Bootstrap.

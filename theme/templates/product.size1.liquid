@@ -1,228 +1,300 @@
-<div itemscope itemtype="http://schema.org/Product" id="top">
+<div itemscope itemtype="http://schema.org/Product" id="top" class="product-single">
 
   <meta itemprop="url" content="{{ shop.url }}{{ product.url }}">
   <meta itemprop="image" content="{{ product.featured_image.src | img_url: 'grande' }}">
 
-  <div class="section-inner">
-  <div class="section-header section-header--breadcrumb">
-    {% include 'breadcrumb' %}
+  <div class="container">
+    <div class="section-header--breadcrumb">
+      {% include 'breadcrumb' %}
+    </div>
   </div>
-  </div>
-	
-  <div class="section-inner">
   
-  <div class="product-single">
-    <div class="grid product-single__hero">
-      <div class="grid__item large--one-half single-image">
+  <div class="section-inner">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-7 col-xl-8">
+          <div class="single-image">
 
-        {% if settings.product_thumbnails_position == 'below' or product.images.size < 2 %}
+            {% if settings.product_thumbnails_position == 'below' or product.images.size < 2 %}
+              <!-- START MAGICZOOMPLUS IMAGES -->{% include 'magiczoomplus' %}<!-- END MAGICZOOMPLUS IMAGES -->
+            {% else %}
+              <div class="grid">
+                <div class="grid__item four-fifths product-single__photos" id="ProductPhoto">
+                  {% assign featured_image = product.selected_or_first_available_variant.featured_image | default: product.featured_image %}
+                  <img src="{{ featured_image | img_url: '1024x1024' }}" alt="{{ featured_image.alt | escape }}" id="ProductPhotoImg"{% if settings.product_image_zoom_type == 'zoom-in' %} data-zoom="{{ featured_image | img_url: '1024x1024' }}"{% endif %} data-image-id="{{ featured_image.id }}">
+                </div>
 
-          <!-- START MAGICZOOMPLUS IMAGES -->{% include 'magiczoomplus' %}<!-- END MAGICZOOMPLUS IMAGES -->
-
-        {% else %}
-
-          <div class="grid">
-
-            <div class="grid__item four-fifths product-single__photos" id="ProductPhoto">
-              {% assign featured_image = product.selected_or_first_available_variant.featured_image | default: product.featured_image %}
-              <img src="{{ featured_image | img_url: '1024x1024' }}" alt="{{ featured_image.alt | escape }}" id="ProductPhotoImg"{% if settings.product_image_zoom_type == 'zoom-in' %} data-zoom="{{ featured_image | img_url: '1024x1024' }}"{% endif %} data-image-id="{{ featured_image.id }}">
-            </div>
-
-            <div class="grid__item one-fifth">
-
-              <ul class="grid product-single__thumbnails" id="ProductThumbs">
-                {% for image in product.images %}
-                
-                  <li class="grid__item">
-                    <a data-image-id="{{ image.id }}" href="{{ image.src | img_url: '1024x1024' }}" class="product-single__thumbnail">
-                      <img src="{{ image.src | img_url: 'grande' }}" alt="{{ image.alt | escape }}">
-                    </a>
-                  </li>
-             
-                {% endfor %}
-              </ul>
-
-            </div>
-
-          </div>
-
-        {% endif %}
-
-        {% if settings.product_image_zoom_type == 'lightbox' %}
-        <ul class="gallery" class="hidden">
-          {% for image in product.images %}
-          <li data-image-id="{{ image.id }}" class="gallery__item" data-mfp-src="{{ image | img_url: '1024x1024' }}"></li>
-          {% endfor %}
-        </ul>
-        {% endif %}
-
-      </div>
-      <div class="grid__item large--one-half single-content">
-        {% comment %}
-          <h3 itemprop="brand">{{ product.vendor }}</h3>
-        {% endcomment %}
-        <h1 itemprop="name">{{ product.title }}</h1>
-
-        <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-          {% assign variant = product.selected_or_first_available_variant %}
-
-          <meta itemprop="priceCurrency" content="{{ shop.currency }}">
-          <link itemprop="availability" href="http://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}">
-
-          <div class="product-single__prices">
-            <span id="ProductPrice" class="product-single__price" itemprop="price">
-              {{ product.price | money }}
-            </span>
-
-            {% if product.compare_at_price > product.price %}
-              <s id="ComparePrice" class="product-single__sale-price">
-                {{ product.compare_at_price_max | money }}
-              </s>
+                <div class="grid__item one-fifth">
+                  <ul class="grid product-single__thumbnails" id="ProductThumbs">
+                    {% for image in product.images %}
+                      <li class="grid__item">
+                        <a data-image-id="{{ image.id }}" href="{{ image.src | img_url: '1024x1024' }}" class="product-single__thumbnail">
+                          <img src="{{ image.src | img_url: 'grande' }}" alt="{{ image.alt | escape }}">
+                        </a>
+                      </li>
+                    {% endfor %}
+                  </ul>
+                </div>
+              </div>
             {% endif %}
-          </div>
-          
-          <div class="product-description rte" itemprop="description">
-           <article class="article"> {%  assign article_words = product.description %} {%assign wordcount = article_words | size %}
-            
-            {% if wordcount > 200 %}
-              {{ product.description | strip_html | truncate: 200 }}
-              <a href="#tab-1" class="scroll"> Read More </a>
-              {% else %}
-              {{ product.description }}
-              {% endif %}
-            </article>
-          </div>
-         
-          <form action="/cart/add" method="post" enctype="multipart/form-data" id="AddToCartForm">
-            <!-- Thirty Four Code -->
-             {% if product.variants.size > 1 %}
-        <li id="swatches">{% include 'swatch' with 'Color' %}</li>
-        {% endif %}
-           
-            <div class="tow-col-input">
-            <!-- End Thirty Four Code -->
 
-            <select name="id" id="productSelect" class="product-single__variants">
-             
-              {% for variant in product.variants %}
-              
-                {% if variant.available %}
-
-                  <option {% if variant == product.selected_or_first_available_variant %} selected="selected" {% endif %} data-sku="{{ variant.sku }}" value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money_with_currency }}</option>
-
-                {% else %}
-                  <option disabled="disabled">
-                    {{ variant.title }} - {{ 'products.product.sold_out' | t }}
-                  </option>
-                {% endif %}
+            {% if settings.product_image_zoom_type == 'lightbox' %}
+            <ul class="gallery" class="hidden">
+              {% for image in product.images %}
+              <li data-image-id="{{ image.id }}" class="gallery__item" data-mfp-src="{{ image | img_url: '1024x1024' }}"></li>
               {% endfor %}
-            </select>
+            </ul>
+            {% endif %}
 
-            <div class="product-single__quantity{% unless settings.product_quantity_enable %} is-hidden{% endunless %}">
-              <label for="Quantity">{{ 'products.product.quantity' | t }}</label>
-              <input type="text" id="Quantity" name="quantity" value="1" min="1" class="quantity-selector">
-            </div>
-            
-            <div style="clear:both;"></div>
-            </div>
-			
-            
-             <div class="tow-col-input">
-            <button type="submit" name="add" id="AddToCart" class="btn">
-              <span id="AddToCartText">{{ 'products.product.add_to_cart' | t }}</span>
-            </button>
-            
-            {% include 'wishlist-pro' %}
-            </div>
-            
-          </form>
-
-          
-
-          {% if settings.social_sharing_products %}
-            <hr class="hr--clear hr--small">
-            {% include 'social-sharing' %}
-          {% endif %}
+          </div>
         </div>
-        <!-- ThirtyFourStart -->
-		{% include 'productTabs' %}
-		
+        <div class="col-lg-5 col-xl-4">
+          <div class="single-content">
+            {% comment %}
+              <h3 itemprop="brand">{{ product.vendor }}</h3>
+            {% endcomment %}
+            <h1 itemprop="name" class="product-single__title">{{ product.title }}</h1>
+
+            <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+              {% assign variant = product.selected_or_first_available_variant %}
+
+              <meta itemprop="priceCurrency" content="{{ shop.currency }}">
+              <link itemprop="availability" href="http://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}">
+
+              <div class="product-single__prices">
+                <span id="ProductPrice" class="product-single__price" itemprop="price">
+                  {{ product.price | money }}
+                </span>
+
+                {% if product.compare_at_price > product.price %}
+                  <s id="ComparePrice" class="product-single__sale-price">
+                    {{ product.compare_at_price_max | money }}
+                  </s>
+                {% endif %}
+              </div>
+              
+              <div class="product-description" itemprop="description">
+                <article class="article"> {%  assign article_words = product.description %} {%assign wordcount = article_words | size %}
+                  {% if wordcount > 200 %}
+                  {{ product.description | strip_html | truncate: 200 }}
+                  <a href="#tab-1" class="readmore">Read More <i class="fa fa-angle-down"></i></a>
+                  {% else %}
+                  {{ product.description }}
+                  {% endif %}
+                </article>
+              </div>
+             
+              <form action="/cart/add" method="post" enctype="multipart/form-data" id="AddToCartForm" data-cart-submit>
+                <!-- Thirty Four Code -->
+                {% if product.variants.size > 1 %}
+                  <div id="swatches">{% include 'swatch' with 'Color' %}</div>
+                {% endif %}
+                
+                <div id="options">
+                  {% if product.options.size > 1 %}
+                    <div class="row">
+                      <div class="col-sm-6">
+                        <select name="id" id="product-select" class="product-single__variants">
+                          {% for variant in product.variants %}
+                          
+                            {% if variant.available %}
+
+                              <option {% if variant == product.selected_or_first_available_variant %} selected="selected" {% endif %} data-sku="{{ variant.sku }}" value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money_with_currency }}</option>
+
+                            {% else %}
+                              <option disabled="disabled">
+                                {{ variant.title }} - {{ 'products.product.sold_out' | t }}
+                              </option>
+                            {% endif %}
+                          {% endfor %}
+                        </select>
+                      </div>
+                      <div class="col-sm-6">
+                        <div class="product-single__quantity{% unless settings.product_quantity_enable %} is-hidden{% endunless %}">
+                          <label for="Quantity">{{ 'products.product.quantity' | t }}</label>
+                          <input type="text" id="Quantity" name="quantity" value="1" min="1" class="quantity-selector">
+                        </div>
+                      </div>
+                    </div>
+                  {% else %}
+                    <select name="id" id="product-select" class="product-single__variants">
+                      {% for variant in product.variants %}
+                      
+                        {% if variant.available %}
+
+                          <option {% if variant == product.selected_or_first_available_variant %} selected="selected" {% endif %} data-sku="{{ variant.sku }}" value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money_with_currency }}</option>
+
+                        {% else %}
+                          <option disabled="disabled">
+                            {{ variant.title }} - {{ 'products.product.sold_out' | t }}
+                          </option>
+                        {% endif %}
+                      {% endfor %}
+                    </select>
+
+                    <div class="product-single__quantity{% unless settings.product_quantity_enable %} is-hidden{% endunless %}">
+                      <label for="Quantity">{{ 'products.product.quantity' | t }}</label>
+                      <input type="text" id="Quantity" name="quantity" value="1" min="1" class="quantity-selector">
+                    </div>
+                  {% endif %}
+                </div>
+          
+                <div id="actions">
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <button type="submit" name="add" id="add-to-cart" class="btn btn-acc">
+                        <span id="add-to-cart-text">{{ 'products.product.add_to_cart' | t }}</span>
+                      </button>
+                    </div>
+                    <div class="col-sm-12">
+                      {% include 'wishlist-pro' %}
+                    </div>
+                  </div>
+                </div>
+              </form>
+
+              
+
+              {% if settings.social_sharing_products %}
+                <hr class="hr--clear hr--small">
+                {% include 'social-sharing' %}
+              {% endif %}
+            </div>
+
+            {% include 'productTabs' %}
+          </div>
+        </div>
       </div>
     </div>
   </div>
-  </div>
   <div class="displayTabs">
-	<div id="tab-1" class="tab-content current">
-		<div class="product-description rte section-inner" itemprop="description"> 
-         <h1 itemprop="name">{{ product.title }}</h1>
-         {% if product.description %}
-          {{ product.description }}
-			{% else %}
-          <p>Sorry, No description available yet.</p>
-			{% endif %}
-	</div>
-
-	</div>
-	<div id="tab-2" class="tab-content">
-	<div class="section-inner">
-      <div class="tow_column">
-       <div class="left_column">
-      <h1>SIZING</h1>
-      {% capture sizechart_1 %}size1{% endcapture %}
-      {% capture fitguidelines1 %}sizedescription1{% endcapture %}
-       {% if sizechart_1 %} 
-      <img src="{{ sizechart_1 | asset_url }}" />
-      {% endif %}  </div>
-        <div class="right_des"> {{ settings[fitguidelines1] }}</div>
-      
-      
-      {% comment %}
-            {% for variant in product.variants %}
-     	 {% if variant.available %}
-          <span value="{{ variant.id }}" style="color:#242424;">{{ variant.option2 | escape}}</span>
-			{% endif %}
-       	{% if variant.option2 %}
-          {% else %}
-     	 <p>Sorry, No size available yet.</p>
-			{% endif %}
-      
-            {% endfor %}
-      {% endcomment %}
- 	</div>
+    <div id="tab-1" class="tab-content current">
+      <div class="product-description rte section-inner" itemprop="description"> 
+        <div class="container">
+           <h1 itemprop="name">{{ product.title }}</h1>
+            {% if product.description %}
+            {{ product.description }}
+            {% else %}
+                <p>Sorry, No description available yet.</p>
+            {% endif %}
+        </div>
       </div>
-	</div>
-	<div id="tab-3" class="tab-content">
-		<div id="shopify-product-reviews" class="section-inner" data-id="{{product.id}}">{{ product.metafields.spr.reviews }}</div>
-	</div>
-	</div>
-   <div class="product_slider">
-    
-   {% for image in product.images offset:4 %} 
-      {% assign number = forloop.index %}
-     {% if number == 1 %}
-     <div class="first"> <img src = "{{ image.src | product_img_url: '1920x' }}" /> </div>
-   {% elsif number >1 and number <= 3 %}
-     <div class="second"> <img src = "{{ image.src | product_img_url: '1920x' }}" /></div>
-     {% else %}
-     <div class="last"> <img src = "{{ image.src | product_img_url: '1920x' }}" /> </div>
-        {% endif %}
-       {% endfor %}
-  </div>
-	<!-- ThirtyFourEnd -->
-  <div class="related_products">
-  <div class="section-inner">
-  {% if settings.product_related_enable %}
-    {% include 'related-products' %}
-  {% endif %}
-  </div>
-</div>
-    <a href="#top" class="scroll scroll-top">scroll</a>
+    </div>
+    <div id="tab-2" class="tab-content">
+      <div class="section-inner">
+        <div class="row">
+          <div class="col-sm-6 col-md-7 col-xl-8">
+            <h1>SIZING</h1>
+            {% capture sizechart_1 %}size1{% endcapture %}
+            {% capture fitguidelines1 %}sizedescription1{% endcapture %}
+            {% if sizechart_1 %} 
+            <img src="{{ sizechart_1 | asset_url }}" />
+            {% endif %}
+          </div>
+          <div class="col-sm-6 col-md-5 col-xl-4">
+            {{ settings[fitguidelines1] }}
+          </div>
 
+          {% comment %}
+          {% for variant in product.variants %}
+            {% if variant.available %}
+              <span value="{{ variant.id }}" style="color:#242424;">{{ variant.option2 | escape}}</span>
+            {% endif %}
+            {% if variant.option2 %}
+            {% else %}
+              <p>Sorry, No size available yet.</p>
+            {% endif %}
+          {% endfor %}
+          {% endcomment %}
+        </div>
+      </div>
+    </div>
+    <div id="tab-3" class="tab-content product-reviews">
+      <div class="container">
+        <div id="product-reviews"></div>
+      </div>
+    </div>
+    <script>
+      jQuery(function($){
+        var ProductReview = require('scripts/ProductReview.jsx');
+        ProductReview.initialize("{{product.id}}");
+      });
+    </script>
+  </div>
+  
+  <div class="product_slider swiper-container content-relative" id="product-slider">
+    <div class="swiper-wrapper">
+    {% for image in product.images offset:4 %} 
+      
+      <div class="swiper-slide">
+        <div class="image text-center"><img src = "{{ image.src | product_img_url: '2048x' }}" /></div>
+      </div>
+
+    {% endfor %}
+    </div>
+
+    <!-- If we need pagination -->
+    <div class="swiper-pagination"></div>
+    
+    <!-- If we need navigation buttons -->
+    <div class="swiper-buttons content-centered-vertical">
+      <div class="container">
+        <div class="content-relative">
+          <div class="swiper-button-prev"><i class="fa fa-angle-left"></i></div>
+          <div class="swiper-button-next"><i class="fa fa-angle-right"></i></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <script>
+  App.resize = function()
+  {
+    var bottom = $(".MagicToolboxSelectorsContainer").height();
+    $('.MagicToolboxContainer a.MagicZoomPlus').css("height", "auto");
+    $('.viewport-xl .MagicToolboxContainer a.MagicZoomPlus, .viewport-lg .MagicToolboxContainer a.MagicZoomPlus').height($('.single-content').height()-bottom-50);
+  }
+
+  jQuery(function($){
+    var mySwiper = new Swiper ('.swiper-container', {
+      // Optional parameters
+      direction: 'horizontal',
+      loop: true,
+      
+      // If we need pagination
+      pagination: '.swiper-pagination',
+      paginationClickable: true,
+
+      // Navigation arrows
+      nextButton: '.swiper-button-next',
+      prevButton: '.swiper-button-prev'
+    });
+  });
+  
+  </script>
+
+  <div class="related_products">
+    <div class="container">
+    {% if settings.product_related_enable %}
+      {% include 'related-products' %}
+    {% endif %}
+    </div>
+  </div>
+  
+  <a href="#top" class="scroll scroll-top">scroll</a>
 </div>
 {{ 'option_selection.js' | shopify_asset_url | script_tag }}
 <script>
   var selectCallback = function(variant, selector) {
   
+    for(var i=0; i<variant.options.length; i++)
+    {
+      jQuery('#selected-option-' + i).html(variant.options[i]);
+      jQuery('.swatch[data-option-index=' + i + '] .swatch-element').removeClass('active');
+      jQuery('.swatch[data-option-index=' + i + '] .swatch-element[data-value='+ variant.options[i] +']').addClass('active');
+    }
+
     timber.productPage({
       money_format: "{{ shop.money_format }}",
       variant: variant,
@@ -236,7 +308,7 @@
   };
 
   jQuery(function($) {
-    new Shopify.OptionSelectors('productSelect', {
+    new Shopify.OptionSelectors('product-select', {
       product: {{ product | json }},
       onVariantSelected: selectCallback,
       enableHistoryState: true
@@ -244,7 +316,7 @@
 
     // Add label if only one product option and it isn't 'Title'. Could be 'Size'.
     {% if product.options.size == 1 and product.options.first != 'Title' %}
-      $('.selector-wrapper:eq(0)').prepend('<label for="productSelect-option-0">{{ product.options.first | escape }}</label>');
+      $('.selector-wrapper:eq(0)').prepend('<label for="product-select-option-0">{{ product.options.first | escape }}</label>');
     {% endif %}
 
     // Hide selectors if we only have 1 variant and its title contains 'Default'.
@@ -265,4 +337,5 @@
     }
   });
 </script>
+
 {% endcomment %}

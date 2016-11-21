@@ -6,16 +6,17 @@
     {{ 'magiczoomplus.additional.css' | asset_url | stylesheet_tag }}
     <script type="text/javascript">
     mzOptions = {
-		'zoomWidth':'',
-		'zoomHeight':'',
+		'zoomWidth':'480px',
+		'zoomHeight':'480px',
 		'zoomPosition':'right',
 		'zoomDistance':15,
 		'selectorTrigger':'click',
-		'transitionEffect':true,
+    'selectorsEffect': 'fade',
+		'transitionEffect': true,
+    'keepThumbnail': false,
 		'lazyZoom':false,
 		'rightClick':false,
-		'zoomMode':'zoom',
-		'zoomOn':'hover',
+		'zoomMode':false,
 		'upscale':true,
 		'smoothing':true,
 		'variableZoom':false,
@@ -34,7 +35,7 @@
 		'textBtnPrev':'Previous'
     }
     mzMobileOptions = {
-		'zoomMode':'zoom',
+		'zoomMode':false,
 		'textHoverZoomHint':'Touch to zoom',
 		'textClickZoomHint':'Double tap to zoom',
 		'textExpandHint':'Tap to expand'

@@ -45,6 +45,7 @@
 .sidebar{
   .filter-menu{
     margin-right: 4rem;
+    margin-top: 3rem;
   }
 
   h4{
@@ -184,5 +185,12 @@
   .product-title{
     font-family: 'DIN CondensedBold';
     font-size: 3rem;
+
+    a{
+      font-family: 'DIN CondensedBold';
+      font-size: 3rem;
+      color: #333332;
+      text-decoration: none;
+    }
   }
 }

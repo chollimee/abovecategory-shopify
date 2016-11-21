@@ -166,10 +166,12 @@ var App = {
 
         $(window).resize(function() {
             App.add_viewport_class();
+            App.resize();
         });
 
         $(document).ready(function() {
             App.add_viewport_class();
+            App.resize();
         });
     },
 
@@ -184,6 +186,15 @@ var App = {
             $("#page").animate({ scrollTop: $('#bottom').offset().top }, "slow");
             return true;
         });
+
+        $("a.scroll-to").click(function(){
+            target = $($(this).attr("href"));
+            $("#page").animate({ scrollTop: $(target).offset().top }, "slow");
+            return true;
+        });
+    },
+
+    resize: function(){
 
     },
 
@@ -262,22 +273,15 @@ class CartItem extends React.Component {
 
   render() {
     var options = [];
-    if (this.props.item.variant_options) {
-      for (var i = 0; i < this.props.item.variant_options.length; i++) {
-        options.push(React.createElement(
-          "div",
-          { className: "item-option", key: i },
-          React.createElement(
-            "span",
-            null,
-            this.props.item.product_options[i],
-            ":"
-          ),
-          " ",
-          this.props.item.variant_options[i]
-        ));
+
+    /*
+    if(this.props.item.variant_options){
+      for(var i = 0; i < this.props.item.variant_options.length; i++)
+      {
+        options.push(<div className="item-option" key={i}><span>{this.props.item.product_options[i]}:</span> {this.props.item.variant_options[i]}</div>);
       }
     }
+    */
 
     return React.createElement(
       "div",
@@ -313,7 +317,11 @@ class CartItem extends React.Component {
             " ",
             this.props.item.quantity
           ),
-          options
+          React.createElement(
+            "div",
+            { className: "item-option" },
+            this.props.item.variant_title
+          )
         ),
         React.createElement(
           "div",
@@ -331,12 +339,20 @@ class CartItem extends React.Component {
 }
 
 var Cart = {
+  update: function (items) {
+    ReactDOM.render(React.createElement(InlineCart, { items: items }), document.getElementById('inline-cart'));
+  },
+
   initialize: function () {
 
     jQuery('#cart-links a.cart').bind('click', function (e) {
       e.preventDefault();
       jQuery('#inline-cart').toggle();
       return false;
+    });
+
+    jQuery(document).on('cart.requestComplete', function (event, cart) {
+      Cart.update(CartJS.cart.items);
     });
 
     jQuery(document).bind("click", function (e) {
@@ -346,7 +362,7 @@ var Cart = {
       }
     });
 
-    ReactDOM.render(React.createElement(InlineCart, { items: CartJS.cart.items }), document.getElementById('inline-cart'));
+    Cart.update(CartJS.cart.items);
   }
 };
 
@@ -683,6 +699,131 @@ var Menu = {
 }
 
 module.exports = Menu;
+});
+
+require.register("scripts/ProductReview.jsx", function(exports, require, module) {
+class Review extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    var ac_items = [];
+    var media_items = [];
+
+    for (var i = 0; i < this.props.data.ac.length; i++) {
+      ac_items.push(React.createElement(ReviewItem, { item: this.props.data.ac[i], key: i }));
+    }
+
+    for (var i = 0; i < this.props.data.media.length; i++) {
+      media_items.push(React.createElement(ReviewItem, { item: this.props.data.media[i], key: i }));
+    }
+
+    return React.createElement(
+      "div",
+      { className: "row" },
+      React.createElement(
+        "div",
+        { className: "col-md-6" },
+        React.createElement(
+          "div",
+          { className: "items ac col-expand-right" },
+          React.createElement(
+            "h1",
+            null,
+            "OUR TAKE"
+          ),
+          ac_items,
+          React.createElement(
+            "div",
+            { className: "text-sm-right view-all" },
+            React.createElement(
+              "a",
+              { href: "#" },
+              "View all articles by AC ",
+              React.createElement("i", { className: "fa fa-angle-right" })
+            )
+          )
+        )
+      ),
+      React.createElement(
+        "div",
+        { className: "col-md-6" },
+        React.createElement(
+          "div",
+          { className: "items media col-expand-left" },
+          React.createElement(
+            "h1",
+            null,
+            "MEDIA REVIEWS"
+          ),
+          media_items,
+          React.createElement(
+            "div",
+            { className: "text-sm-right view-all" },
+            React.createElement(
+              "a",
+              { href: "#" },
+              "View all articles by Media ",
+              React.createElement("i", { className: "fa fa-angle-right" })
+            )
+          )
+        )
+      )
+    );
+  }
+}
+
+class ReviewItem extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    var options = [];
+
+    return React.createElement(
+      "div",
+      { className: "item" },
+      React.createElement(
+        "h2",
+        null,
+        this.props.item.post_title
+      ),
+      React.createElement(
+        "p",
+        null,
+        this.props.item.post_excerpt
+      ),
+      React.createElement(
+        "p",
+        { className: "text-sm-right" },
+        React.createElement(
+          "a",
+          { href: "{this.props.item.post_link}", className: "btn btn-primary btn-acc" },
+          "READ MORE ",
+          React.createElement("i", { className: "fa fa-angle-right" })
+        )
+      )
+    );
+  }
+}
+
+var ProductReview = {
+  initialize: function (product_id) {
+    var url = "http://23.253.254.9/wp-json/ac/v1/products/" + product_id + "/reviews";
+    url = "https://cdn.shopify.com/s/files/1/1234/3118/t/2/assets/reviews.json?" + Date.now();
+
+    jQuery.getJSON({
+      url: url
+    }).done(function (data) {
+
+      ReactDOM.render(React.createElement(Review, { data: data }), document.getElementById('product-reviews'));
+    });
+  }
+};
+
+module.exports = ProductReview;
 });
 
 require.register("scripts/ProductShow.js", function(exports, require, module) {
