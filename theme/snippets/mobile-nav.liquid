@@ -1,21 +1,32 @@
-<div id="mobile-navigation" off-canvas="left-sidebar left reveal">
+
   <div id="search-box">
     <form role="search" method="get" id="search-form" action="/search">
+      <input type="hidden" name="type" value="product">
       <div class="input-group search">
         <span class="input-group-addon">
           <i class="fa fa-search"></i>
         </span>
-        <input type="text" value="{{ search.terms | escape }}" name="s" id="s" class="form-control" placeholder="Search"/>
+        <input type="text" value="{{ search.terms | escape }}" name="q" id="q" class="form-control" placeholder="Search"/>
       </div>
     </form>
   </div>
   <div id="cart-links" class="text-xs-center">
     <ul class="row">
       <li class="col-xs-6">
-        <a href="">Join/Login</a>
+        {% if shop.customer_accounts_enabled %}
+        {% if customer %}
+            <a href="/account">{{ 'layout.customer.account' | t }}</a>
+            /
+            {{ 'Logout' | customer_logout_link }}
+
+        {% else %}
+            {{ 'Join' | customer_register_link }} /
+            {{ 'Login' | customer_login_link }}
+        {% endif %}
+        {% endif %}
       </li>
       <li class="col-xs-6">
-        <a href=""><i class="fa fa-shopping-cart"></i></a>
+        <a href="/cart"><i class="fa fa-shopping-cart"></i></a>
       </li>
     </ul>
   </div>
@@ -42,23 +53,5 @@
         {% endif %}
       </li>
       {% endfor %}
-
-      {% if shop.customer_accounts_enabled %}
-        {% if customer %}
-          <li class="mobile-nav__link">
-            <a href="/account">{{ 'layout.customer.account' | t }}</a>
-          </li>
-          <li class="mobile-nav__link">
-            {{ 'layout.customer.log_out' | t | customer_logout_link }}
-          </li>
-        {% else %}
-          <li class="mobile-nav__link">
-            {{ 'layout.customer.log_in' | t | customer_login_link }}
-          </li>
-          <li class="mobile-nav__link">
-            {{ 'layout.customer.create_account' | t | customer_register_link }}
-          </li>
-        {% endif %}
-      {% endif %}
   </nav>
-</div>
+

@@ -1,0 +1,84 @@
+/*============================================================================
+  Abovecategory | A theme by Anthony, TJ, Xing
+==============================================================================*/
+.lime-green{background: url({{ 'color-lime-green.jpg' | asset_url }}); }
+.clinique{background: url({{ 'color-clinique.jpg' | asset_url }}); }
+.antracite-lime{ background: url({{ 'color-antracite-lime.jpg' | asset_url }}); }
+.ashley-blue{ background: url({{ 'color-ashley-blue.jpg' | asset_url }}); }
+.black-green{ background: url({{ 'color-black-green.jpg' | asset_url }}); }
+.black-light-blue{ background: url({{ 'color-black-light-blue.jpg' | asset_url }}); }
+.black-lime{ background: url({{ 'color-black-lime.jpg' | asset_url }}); }
+.black-orange{ background: url({{ 'color-black-orange.jpg' | asset_url }}); }
+.black-pinstripe, .pinstripe-black{ background: url({{ 'color-black-pinstripe.jpg' | asset_url }}); }
+.black-red{ background: url({{ 'color-black-red.jpg' | asset_url }}); }
+.black-white{ background: url({{ 'color-black-white.jpg' | asset_url }}); }
+.flower-power{ background: url({{ 'color-flower-power.jpg' | asset_url }}); }
+.hawaii{ background: url({{ 'color-hawaii.jpg' | asset_url }}); }
+.innerspace{ background: url({{ 'color-innerspace.jpg' | asset_url }}); }
+.light-blue{ background: url({{ 'color-light-blue.jpg' | asset_url }}); }
+.matte-black{ background: url({{ 'color-matte-black.jpg' | asset_url }}); }
+.matte-navy{ background: url({{ 'color-matte-navy.jpg' | asset_url }}); }
+.navy-pink{ background: url({{ 'color-navy-pink.jpg' | asset_url }}); }
+.navy-white{ background: url({{ 'color-navy-white.jpg' | asset_url }}); }
+.persimmion, .persimmon{ background: url({{ 'color-persimmion.jpg' | asset_url }}); }
+.pink-navy{ background: url({{ 'color-pink-navy.jpg' | asset_url }}); }
+.white{ background: url({{ 'color-white.jpg' | asset_url }}); }
+.white-light-blue{ background: url({{ 'color-white-light-blue.jpg' | asset_url }}); }
+.white-lime-green{ background: url({{ 'color-white-lime-green.jpg' | asset_url }}); }
+.white-navy{ background: url({{ 'color-white-navy.jpg' | asset_url }}); }
+.white-orange, .orange-white{ background: url({{ 'color-white-orange.jpg' | asset_url }}); }
+.white-pinstripe, .pinstripe-white{ background: url({{ 'color-white-pinstripe.jpg' | asset_url }}); }
+.white-red{ background: url({{ 'color-white-red.jpg' | asset_url }}); }
+.black-camo, .black-w-camo{ background: url({{ 'color-black-camo.jpg' | asset_url }}); }
+.white-turq{ background: url({{ 'color-white-turq.jpg' | asset_url }}); }
+.black-white-logo, .black-w-white-logo{ background: url({{ 'color-black-white-logo.jpg' | asset_url }}); }
+.titanium{ background: url({{ 'color-titanium.jpg' | asset_url }});}
+.dark-grey{ background: url({{ 'color-dark-grey.jpg' | asset_url }});}
+
+.sold-out img {
+  opacity: 0.4;
+  filter: alpha(opacity=40);
+}
+
+$badgeSize: 50;
+
+.badge {
+  display: table;
+  position: absolute;
+  width: $badgeSize;
+  height: $badgeSize;
+  background-color: #7bc4d2;
+  color: $colorBtnPrimaryText;
+  border-radius: 50%;
+  text-transform: uppercase;
+  font-weight: bold;
+  text-align: center;
+  font-size: em(12px);
+  line-height: 1.1;
+  z-index: 10;
+}
+
+.badge--sold-out {
+  top: 50%;
+  left: 50%;
+  margin-top: -($badgeSize / 2);
+  margin-left: -($badgeSize / 2);
+  background-color: #f05323;
+  color: #fff;
+}
+
+.badge--sale {
+  top: -($badgeSize / 5);
+  right: -($badgeSize / 5);
+}
+
+.badge__text {
+  display: table-cell;
+  vertical-align: middle;
+  padding: 2px 8px 0;
+}
+
+.badge__text--small {
+  font-size: 8px;
+  padding-top: 0;
+}

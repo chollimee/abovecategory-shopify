@@ -1,16 +1,24 @@
-<div class="form-horizontal">
-  {% comment %}<label for="SortBy">{{ 'collections.sorting.title' | t }}</label> {% endcomment %}
-  <select name="SortBy" id="SortBy">
-     <option value="">Sort By</option>
-    <option value="manual">{{ 'collections.sorting.featured' | t }}</option>
-    <option value="best-selling">{{ 'collections.sorting.best_selling' | t }}</option>
-    <option value="title-ascending">{{ 'collections.sorting.az' | t }}</option>
-    <option value="title-descending">{{ 'collections.sorting.za' | t }}</option>
-    <option value="price-ascending">{{ 'collections.sorting.price_ascending' | t }}</option>
-    <option value="price-descending">{{ 'collections.sorting.price_descending' | t }}</option>
-    <option value="created-descending">{{ 'collections.sorting.date_descending' | t }}</option>
-    <option value="created-ascending">{{ 'collections.sorting.date_ascending' | t }}</option>
-  </select>
+<div class="form-horizontal filter-sort filter-menu">
+  {% comment %}<label for="sort-by">{{ 'collections.sorting.title' | t }}</label> {% endcomment %}
+
+  <div class="dropdown">
+    <button class="btn form-control" type="button" id="dropdown-sort-by" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Sort By <i class="fa fa-angle-down"></i><i class="fa fa-angle-up"></i>
+    </button>
+    <ul id="sort-by" data-selected="{{collection.sort_by}}" class="dropdown-menu" aria-labelledby="dropdown-sort-by">
+      <li class="sort-manual"><a href="javascript: ac_sort_by('manual');">{{ 'collections.sorting.featured' | t }}</a></li>
+      <li class="sort-best-selling"><a href="javascript: ac_sort_by('best-selling');">{{ 'collections.sorting.best_selling' | t }}</a></li>
+      <li class="sort-title-ascending"><a href="javascript: ac_sort_by('title-ascending');">{{ 'collections.sorting.az' | t }}</a></li>
+      <li class="sort-price-ascending"><a href="javascript: ac_sort_by('title-descending');">{{ 'collections.sorting.za' | t }}</a></li>
+      <li class="sort-price-ascending"><a href="javascript: ac_sort_by('price-ascending');">{{ 'collections.sorting.price_ascending' | t }}</a></li>
+      <li class="sort-price-descending"><a href="javascript: ac_sort_by('price-descending');">{{ 'collections.sorting.price_descending' | t }}</a></li>
+      <li class="sort-created-descending"><a href="javascript: ac_sort_by('created-descending');">{{ 'collections.sorting.date_descending' | t }}</a></li>
+      <li class="sort-created-ascending"><a href="javascript: ac_sort_by('created-ascending');">{{ 'collections.sorting.date_ascending' | t }}</a></li>
+    </ul>
+  </div>
+
+      
+
 </div>
 
 <script>
@@ -29,12 +37,12 @@
   }
 /*.val('{{ collection.sort_by | default: collection.default_sort_by }}')*/
   $(function() {
-    $('#SortBy')
-      .val('{{ collection.sort_by }}')
-      .bind('change', function() {
-        Shopify.queryParams.sort_by = jQuery(this).val();
-        location.search = jQuery.param(Shopify.queryParams);
-      }
-    );
+    var selected = $('#sort-by').attr("data-selected");
+    $('.sort-' + selected).addClass("active");
   });
+
+  function ac_sort_by(param){
+    Shopify.queryParams.sort_by = param;
+    location.search = jQuery.param(Shopify.queryParams);
+  }
 </script>

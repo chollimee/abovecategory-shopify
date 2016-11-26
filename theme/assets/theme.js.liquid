@@ -185,8 +185,7 @@ theme.addToCartflip = function ($addToCartBtn) {
       window.location.href = '/cart';
     })
     .prop('disabled', false)
-    .addClass('btn--flipped')
-    .after('<span class="continue-shopping"> <a class="btn--secondary" href="/collections/all">{{ 'products.product.continue_shopping' | t }}</a></span>');
+    .addClass('btn--flipped');
 
   $('.continue-shopping a').bind('click', theme.backButton);
 
@@ -219,8 +218,8 @@ theme.enableAjax = function () {
         success: function(lineItem) {
           $.getJSON('/cart.js', function(cart) {
             
-            var inlineCart = require("scripts/Cart.jsx");
-            inlineCart.update(cart.items);
+            CartJS.cart = cart;
+            $('#cart-links a.cart').trigger('click');
 
             theme.cache.$cartCount.text(cart.item_count);
             $('.hidden-count').removeClass('hidden-count');

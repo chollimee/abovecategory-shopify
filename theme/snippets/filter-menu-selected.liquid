@@ -9,7 +9,7 @@
 {{ shop.metafields.pt_filter_css['user'] }}
 </style>
 <div class="heading-results clearfix">
-    <div class="numberOfResult pull-left">{{ collection.products_count }} Results</div>
+    <div class="numberOfResult pull-left hidden-md-down">{{ collection.products_count }} Results</div>
 
     <div class="filter-menu filter-selected-{{ collection.handle }}{% for tag in current_tags %} filter-selected-{{ tag | handleize }}{% endfor %} clearfix pull-left">
       {% unless collection.handle != nil and template contains 'collection' %}
@@ -30,39 +30,14 @@
 
       {% else%}
 
-        {% assign tag_list = collection.tags %}
-        {% assign current_collection_handle = collection.handle %}
-
-        {% if collection.metafields.sort_primary.collection_handle %}
-          {% assign current_collection_handle = collections[collection.metafields.sort_primary.collection_handle].handle %}
-        {% endif %}
-
-        {% for menu_header in shop.metafields.pt_filter_menu %}
-          {% assign has_items = false %}
-          {% assign menu_items = menu_header.last | split: ',' %}
-
-          {% for menu_item in menu_items %}
-            {% if tag_list contains menu_item or current_tags contains menu_item or current_collection_handle == menu_item %}{% assign has_items = true %}{% endif %}
-          {% endfor %}
-
-          {% if has_items %}
-            {% assign header_handle = menu_header.first | split: '-' %}
-            {% assign header_handle = menu_header.first | replace: header_handle.first, '' %}
-               
-              <span class="nav{{ header_handle }}">
-                  {% for menu_item in menu_items %}
-                      {% assign filter_collection = collections[menu_item] %}
-                      {% if filter_collection and filter_collection.title != nil and filter_collection.title != '' %}
-                          {% if tag_list contains menu_item or current_tags contains menu_item or current_collection_handle == menu_item %}
-                              {% if current_tags contains menu_item %}
-                                  {{ filter_collection.title | append: '<i class="check-icon removeFilter"></i> ' | link_to_remove_tag: menu_item }}
-                              {% endif %}
-                          {% endif %}
-                      {% endif %}
-                  {% endfor %}
-              </span>
-          {% endif %}
+        {% for tag in current_tags %}
+          {{ '<i class="check-icon"></i> ' | append: tag | link_to_remove_tag: tag }}
         {% endfor %}
+        {% if current_tags.size > 0 %}
+        <span>
+          <a href="/collections/{{ collection.handle }}" class="remove-all-filters ac-link">Remove All Filters</a>
+        </span>
+        {% endif %}
          
       {% endunless %}  
     </div>

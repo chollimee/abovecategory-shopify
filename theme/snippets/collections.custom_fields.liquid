@@ -1,0 +1,20 @@
+{% comment %}
+  DO NOT MODIFY THIS FILE DIRECTLY. YOU CAN COPY AND PASTE INTO A NEW SNIPPET.
+  THIS FILE WILL BE OVERWRITTEN.
+{% endcomment %}
+<div class="custom-fields-wrapper">
+
+            {% if collection.metafields.custom_fields["tag"] != blank %}
+            <div class="custom-field custom-field__tag custom-field__type--text-list">
+                <h3 class="custom-field--title">Tag</h3>
+                <div class="custom-field--value">
+        {% assign values = collection.metafields.custom_fields["tag"] | split: "|" %}
+        <ul>
+        {% for value in values %}
+          <li>{{ value }}</li>
+        {% endfor %}
+        </ul>
+        </div>
+              </div>
+            {% endif %}
+</div>

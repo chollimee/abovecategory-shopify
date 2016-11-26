@@ -22,7 +22,6 @@ var Menu = {
 
   init_collapse: function(){
     $("#main-menu").metisMenu();
-    $("#main-menu .menu-item-has-children > a").append("<span class='fa'></span>")
   },
 
   open : function(){

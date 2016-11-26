@@ -63,16 +63,22 @@ class CartItem extends React.Component {
 
 var Cart = {
   update: function(items){
+    this.update_cart_badge(items);
     ReactDOM.render(
       <InlineCart items={items} />,
       document.getElementById('inline-cart')
     );
   },
 
-  initialize: function() {
+  update_cart_badge: function(items)
+  {
+    jQuery('#cart-links a.cart span').html(items.length);
+  },
 
+  initialize: function() { 
     jQuery('#cart-links a.cart').bind('click', function(e){
       e.preventDefault();
+      Cart.update(CartJS.cart.items);
       jQuery('#inline-cart').toggle();
       return false;
     });

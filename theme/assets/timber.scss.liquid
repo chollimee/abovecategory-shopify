@@ -2270,11 +2270,6 @@ $socialIconFontStack: 'icons';
 /*================= If logo is above navigation ================== */
 {% if settings.nav_below_logo %}
   .site-nav {
-    {% if settings.show_header_lines %}
-    border-top: 1px solid $colorBorder;
-    border-bottom: 1px solid $colorBorder;
-    {% endif %}
-    margin-top: $gutter;
   }
 {% endif %}
 
@@ -2747,7 +2742,6 @@ ul.mm-submenu.simple > li .mm-list-name > span{font-weight:normal!important; fon
 
 
 .template-collection .wrapper.main-content{max-width: 100% !important; margin-top: 0; padding: 0;} 
-.container{max-width: 1256px; padding: 0 ; width: 100%; margin: 0 auto;}
 .inner-slider{padding:70px 0;  background-size: 100% auto; min-height: 365px; background-repeat: no-repeat; border-bottom:1px solid #e7e8ea;}
 .inner-slider h1{font-size:36.96px; color:#fbfbfa; text-transform:uppercase; margin-bottom: 2px;}
 .inner-slider{font-size:13.31px; color:#fbfbfa; font-family: 'Gotham Book';} 
@@ -2790,7 +2784,6 @@ color:#FFF; font-weight:normal;  font-family: 'Gotham Bold'; }
 
 .right-column .grid__item:hover .grid-link__title, .right-column .grid__item:hover .grid-link__meta{color:#acacac;}
 .scroll-top{margin: 60px 0 80px; background: url(../assets/scroll-top.png) no-repeat;  margin: 60px 0 80px 257px;}
-.sidebar .has_group_selected{display:none!important;}
 .dropdown-content{top:37px!important; width:220px!important;  background: #fff url(../assets/pdp_cart.jpg) repeat-y 0 0!important;
  right: -40px!important;} 
 .dropdown-content ul{margin: 0; padding:0 12px;}

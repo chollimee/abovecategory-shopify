@@ -1,5 +1,11 @@
 @import "variables";
 
+@media (max-width: 1358px){
+  #welcome-text{
+    display: none;
+  }
+}
+
 nav{
   ul{
     padding: 0;
@@ -47,7 +53,7 @@ nav{
       text-transform: uppercase;
       color: $color-acc-main-nav;
       padding: 0 1rem;
-      font-family: 'DIN Mod';
+      font-family: 'DIN CondensedBold';
       letter-spacing: 1px;
       -webkit-font-smoothing: antialiased;
 
@@ -96,54 +102,56 @@ nav{
   #main-menu{
     height: 2.6rem;
 
-    & > li{
+    & > ul > li{
       display: inline-table;
       padding: 0 1.5rem;
 
-      &:hover{
-        cursor: pointer;
-        & > a{
-          border-bottom: 2px solid #000;
+      & > ul{
+        overflow: visible!important;
+        &:before{
+          content: ''!important;
+          height: 100%;
+          width: calc((100vw - 100%) / 2);
+          background: #fff;
+          position: absolute;
+          left: 0;
+          top: 0;
+          transform: translate(-100%, 0);
         }
-        ul{
-          display: block;
+
+        &:after{
+          content: ''!important;
+          content: '';
+          height: 100%;
+          width: calc((100vw - 100%) / 2);
+          background: #fff;
+          position: absolute;
+          right: 0;
+          top: 0;
+          transform: translate(100%, 0);
         }
       }
 
-      a{
+      & > a {
+        margin-bottom: 1.3rem!important;
         display: block;
         text-decoration: none;
         padding: 0;
-        margin-bottom: 1.3rem;
+        @include ac-link;
       }
-     
-      ul{
-        position: absolute;
-        width: 500%;
-        margin-top: 0px;
-        margin-left: -200%;
-        z-index: 99999;
-        padding: 2rem;
-        clear: left;
-        left: 0;
-        background: #fff;
-        display: none;
 
-        &>li{
-          display: inline-table;
-          margin: 0 1.5rem;
-          &:hover{
-            a{
-              color: $color-acc-main-nav-hover;
-            }
-          }
-        }
+      a{
+        @include ac-link;
       }
     }
   }
 }
 
-
+.mm-submenu{
+  &>li{
+    padding: 0!important;
+  }
+}
 
 // mobile version goes right here
 #mobile-navigation{
@@ -245,4 +253,8 @@ nav{
 
 ul.site-nav > li > a .fa{
   display: none;
+}
+
+ul.horizontal-mega-menu a:after, ul.vertical-mega-menu a:after, ul.mm-submenu a:after{
+  content: ''!important;
 }

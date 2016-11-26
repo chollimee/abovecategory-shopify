@@ -1,0 +1,159 @@
+.filter-menu-mobile{
+  .filter-sort{
+    button{
+      background: #e2e2e2!important;
+      min-width: 100%!important;
+    }
+  }
+
+  .filter-menu{
+    margin-top: 1rem!important;
+    margin-right: 0!important;
+
+    #nav-color ul li{
+      a{
+        text-indent: 0;
+        border-radius: 0;
+
+        i{
+          width: 10px;
+          height: 10px;
+          display: inline-block;
+          border-radius: 50%;
+          margin-right: 0.5rem;
+        }
+      }
+      
+    }
+
+    #nav-all-categories-mobile{
+      ul{
+        width: 100%;
+      }
+
+      li{
+        padding: 0;
+        a{
+          border: none;
+          text-align: left;
+        }
+      }
+    }
+
+    .metismenu{
+      background: #f0f0f0;
+      margin-bottom: 0;
+
+      i.fa{
+        height: 4rem;
+        line-height: 4rem;
+        font-size: 2rem;
+        float: right;
+      }
+
+      i.fa-angle-up{
+        color: #f05323;
+        display: none;
+      }
+
+      li.active > a{
+        i.fa-angle-up{
+          display: block;
+        }
+
+        i.fa-angle-down{
+          display: none;
+        }
+      }
+
+
+      & > li {
+        &.active > a{
+          i.fa-angle-up{
+            display: block;
+          }
+
+          i.fa-angle-down{
+            display: none;
+          }
+        }
+        & > a{
+          padding: 0 10px;
+          height: 4rem;
+          line-height: 4rem;
+          font-size: 1.5rem;
+          color: #333332;
+          outline: none;
+          font-family: 'Gotham Medium';
+          display: block;
+          background: #e2e2e2;
+
+          i.fa-angle-up{
+            color: #f05323;
+            display: none;
+          }
+        }
+
+        ul{
+          margin: 0;
+        }
+      }
+
+      & > li > ul{
+        overflow: visible;
+
+        &.collapsing{
+          overflow: hidden;
+        }
+
+        & > li{
+          border-top: 1px solid #ddd;
+        }
+
+        li{
+          padding: 0;
+          margin: 0!important;
+
+          ul{
+            width: 200%;
+            background: #fff;
+
+            li{
+              padding: 1rem 2rem;
+
+              a{
+                text-align: center;
+                width: 100%;
+                border: 1px solid #e2e2e2;
+
+                &:hover{
+                  background: #f0f0f0;
+                }
+              }
+
+              &.selected{
+                a{
+                  background: #f0f0f0;
+                }
+              }
+            }
+          }
+
+          a{
+            padding: 0 10px!important;
+            margin: 0!important;
+            height: 4rem;
+            line-height: 4rem;
+            font-size: 1.5rem;
+            color: #333332;
+            outline: none;
+            font-family: 'Gotham Medium';
+            display: block;
+            width: 100%;
+            overflow: hidden;
+          }
+        }
+      }
+    }
+  }
+}

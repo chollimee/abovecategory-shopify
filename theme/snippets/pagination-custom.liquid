@@ -20,30 +20,28 @@
 
 {% endcomment %}
 
-<ul class="pagination-custom">
+<div class="pagination pagination-custom">
   {% if paginate.previous %}
-    <li><a href="{{ paginate.previous.url }}" title="{{ paginate.previous.title }}">&larr;</a></li>
+    <a href="{{ paginate.previous.url }}" title="{{ paginate.previous.title }}">PREVIOUS</a>
   {% else %}
-    <li class="disabled"><span>&larr;</span></li>
+    <span class="disabled">PREVIOUS</span>
   {% endif %}
 
   {% for part in paginate.parts %}
     {% if part.is_link %}
-      <li>
         <a href="{{ part.url }}" title="">{{ part.title }}</a>
-      </li>
     {% else %}
       {% if part.title == paginate.current_page %}
-        <li class="active"><span>{{ part.title }}</span></li>
+        <span class="active">{{ part.title }}</span>
       {% else %}
-        <li><span>{{ part.title }}</span></li>
+        <span>{{ part.title }}</span>
       {% endif %}
     {% endif %}
   {% endfor %}
 
   {% if paginate.next %}
-    <li><a href="{{ paginate.next.url }}" title="{{ paginate.next.title }}">&rarr;</a></li>
+    <a href="{{ paginate.next.url }}" title="{{ paginate.next.title }}">NEXT</a>
   {% else %}
-    <li class="disabled"><span>&rarr;</span></li>
+    <span class="disabled">NEXT</span>
   {% endif %}
-</ul>
+</div>

@@ -32,12 +32,13 @@
       </div>
 
       <div class="col-xs-6 col-sm-4">
-        <form role="search" method="get" id="search-form" class="pull-sm-right" action="">
+        <form role="search" method="get" id="search-form" class="pull-sm-right" action="/search">
+          <input type="hidden" name="type" value="product">
           <div class="input-group search">
             <span class="input-group-addon">
               <i class="fa fa-search"></i>
             </span>
-            <input type="text" value="" name="s" id="s" class="form-control" placeholder="Search"/>
+            <input type="text" value="" name="q" id="q" class="form-control" placeholder="Search"/>
           </div>
         </form>
       </div>
@@ -45,7 +46,7 @@
   </div>
 
   <div id="site-navigation">
-    <div class="text-block">
+    <div class="container-fluid text-block">
       <div class="row">
         <div class="col-md-3">
           <div id="welcome-text">
@@ -68,7 +69,7 @@
               <span>/</span>
               {{ 'Log in' | customer_login_link }}
             {% endif %}      
-            <a href="" class="cart"><i class="fa fa-shopping-cart"></i></a>
+            <a href="" class="cart"><i class="fa fa-shopping-cart"></i><span class="tag tag-pill"></span></a>
           </div>
         </div>
       </div>

@@ -102,14 +102,16 @@
 
   {% if collection.image %}
     <div id="featured" class="featured content-relative">
-        <img class="content-centered-md-down" src="{{ collection | img_url: '2048x2048'}}">
+        <img class="content-centered-lg-down" src="{{ collection | img_url: '2048x2048'}}">
         {% if collection.description != blank %}
         <div class="container">
           <div class="content-centered-vertical">
-            <div class="offset-md-1 content-block text-sm-center text-md-left">
-              {{ collection.description }}
-              <div class="content-relative">
-                <a href="#bottom" id="screen-to-bottom" class="content-centered-horizontal icon-round"><i class="fa fa-angle-down"></i></a>
+            <div class="container">
+              <div class="offset-md-1 content-block text-xs-center text-md-left">
+                {{ collection.description }}
+                <div class="content-relative">
+                  <a href="#bottom" id="screen-to-bottom" class="content-centered-horizontal icon-round"><i class="fa fa-angle-down"></i></a>
+                </div>
               </div>
             </div>
           </div>
@@ -129,15 +131,19 @@
 
     <div id="main">
       <div class="row">
-        <div class="sidebar col-xs-12 col-md-5 col-lg-3">
-          {% include 'filter-menu' %}
+        <div class="sidebar col-xs-12 col-lg-3">
+          <div class="hidden-md-down">
+            {% include 'filter-menu' %}
+          </div>
+          <div class="hidden-lg-up">
+            {% include 'filter-menu-mobile' %}
+          </div>
         </div>
         
-      	<div class="right-column col-xs-12 col-md-7 col-lg-9">
-          <header id="heading" class="section-header">
-
+      	<div class="right-column col-xs-12 col-lg-9">
+          <header id="heading" class="section-header clearfix">
               {% if settings.collections_tags_enable or settings.collections_sort_enable %}
-                  <div class="filter-sort pull-lg-right">
+                  <div class="filter-sort pull-lg-right hidden-md-down">
                     {% if settings.collections_sort_enable %}
                       {% include 'collection-sorting' %}
                     {% endif %}
@@ -187,17 +193,18 @@
           </div>
         </div>
       </div>
+
+      {% if paginate.pages > 1 %}
+        <div class="text-center">
+          {% include 'pagination-custom' %}
+        </div>
+      {% endif %}
+
       <div class="text-xs-center content-after content-relative screen-to-top-block">
           <a href="#top" class="icon-round content-centered-horizontal" id="screen-to-top"><i class="fa fa-angle-up"></i></a>
       </div>
     </div>
   </div>
-
-  {% if paginate.pages > 1 %}
-    <div class="text-center">
-      {% include 'pagination-custom' %}
-    </div>
-  {% endif %}
 
   {% endpaginate %}
 </div>

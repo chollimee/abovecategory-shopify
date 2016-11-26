@@ -16,7 +16,9 @@
           <div class="single-image">
 
             {% if settings.product_thumbnails_position == 'below' or product.images.size < 2 %}
+              <div class="product-image">
               <!-- START MAGICZOOMPLUS IMAGES -->{% include 'magiczoomplus' %}<!-- END MAGICZOOMPLUS IMAGES -->
+              </div>
             {% else %}
               <div class="grid">
                 <div class="grid__item four-fifths product-single__photos" id="ProductPhoto">
@@ -188,7 +190,9 @@
   	</div>
   	<div id="tab-2" class="tab-content">
     	<div class="section-inner">
-        {% include 'size-chart' %}
+        <div class="container">
+          {% include 'size-chart' %}
+        </div>
       </div>
     </div>
   	<div id="tab-3" class="tab-content product-reviews">
@@ -203,29 +207,33 @@
       });
     </script>
   </div>
-  
-  <div class="product_slider swiper-container content-relative" id="product-slider">
-    <div class="swiper-wrapper">
-    {% for image in product.images %} 
-      {% if (image.alt contains "lifestyle") %}
-      <div class="swiper-slide">
-        <div class="image text-center"><img src = "{{ image.src | product_img_url: '2048x' }}" /></div>
-      </div>
-      {% endif %}
-    {% endfor %}
-    </div>
 
-    <!-- If we need pagination -->
-    <div class="swiper-pagination"></div>
-    
-    <!-- If we need navigation buttons -->
-    <div class="swiper-buttons content-centered-vertical">
-      <div class="container">
-        <div class="content-relative">
-          <div class="swiper-button-prev"><i class="fa fa-angle-left"></i></div>
-          <div class="swiper-button-next"><i class="fa fa-angle-right"></i></div>
+  <div class="product-slider content-relative" id="product-slider">
+    <div class="swiper-container">
+      <div class="swiper-wrapper">
+      {% for image in product.images %} 
+        {% if (image.alt contains "lifestyle") %}
+        <div class="swiper-slide">
+          <div class="image text-center"><img class="content-centered-md-down" src = "{{ image.src | product_img_url: '2048x' }}" /></div>
+        </div>
+        {% endif %}
+      {% endfor %}
+      </div>
+
+
+      <!-- If we need pagination -->
+      <div class="swiper-pagination"></div>
+      
+      <!-- If we need navigation buttons -->
+      <div class="swiper-buttons content-centered-vertical">
+        <div class="container">
+          <div class="content-relative">
+            <div class="swiper-button-prev"><i class="fa fa-angle-left"></i></div>
+            <div class="swiper-button-next"><i class="fa fa-angle-right"></i></div>
+          </div>
         </div>
       </div>
+
     </div>
   </div>
 
@@ -238,22 +246,60 @@
     $('.viewport-xl .MagicToolboxContainer a.MagicZoomPlus, .viewport-lg .MagicToolboxContainer a.MagicZoomPlus').height($('.single-content').height()-bottom-50);
   }
 
-  jQuery(function($){
-    var mySwiper = new Swiper ('.swiper-container', {
-      // Optional parameters
-      direction: 'horizontal',
-      loop: true,
-      
-      // If we need pagination
-      pagination: '.swiper-pagination',
-      paginationClickable: true,
+  var thumbnailSwiper = null;
+  var slidesPerViewCount = 8;
 
-      // Navigation arrows
-      nextButton: '.swiper-button-next',
-      prevButton: '.swiper-button-prev'
-    });
+  function slidesPerView()
+  {
+    slidesPerViewCount = $('.MagicToolboxSelectorsContainer .swiper-container').width() / 120;
+  }
+
+  $(window).on('resize', function(){
+    slidesPerView();
   });
-  
+  slidesPerView();
+
+  jQuery(function($){
+    if(('#product-slider .swiper-slide').length > 0){
+      var lifestyleSwiper = new Swiper ('#product-slider .swiper-container', {
+        // Optional parameters
+        direction: 'horizontal',
+        loop: true,
+        
+        // If we need pagination
+        pagination: '#product-slider .swiper-pagination',
+        paginationClickable: true,
+
+        // Navigation arrows
+        nextButton: '#product-slider .swiper-button-next',
+        prevButton: '#product-slider .swiper-button-prev'
+      });
+    }else{
+      $('#product-slider').hide();
+    }
+  });
+
+
+  $('body').on('viewport:updated', function(){
+    if(thumbnailSwiper!=null)
+    {
+      thumbnailSwiper.destroy(true, true);
+    }
+
+    thumbnailSwiper = new Swiper('.MagicToolboxSelectorsContainer .swiper-container', {
+      slidesPerView: slidesPerViewCount,
+      spaceBetween: 0,
+      nextButton: '.MagicToolboxSelectorsContainer .swiper-button-next',
+      prevButton: '.MagicToolboxSelectorsContainer .swiper-button-prev'
+    });
+
+
+    if(App.viewport.is('>=md'))
+    {
+      // TODO when viewport >=md
+    }
+
+  });
   </script>
 
   <div class="related_products">
@@ -264,7 +310,9 @@
     </div>
   </div>
   
-  <a href="#top" class="scroll scroll-top">scroll</a>
+  <div class="text-xs-center content-after content-relative screen-to-top-block">
+      <a href="#top" class="icon-round content-centered-horizontal" id="screen-to-top"><i class="fa fa-angle-up"></i></a>
+  </div>
 </div>
 {{ 'option_selection.js' | shopify_asset_url | script_tag }}
 <script>

@@ -926,7 +926,7 @@ button.mz-button.mz-button-next:before { content: "\a003"; }
 @media screen and (max-device-width: 767px) {
     button.mz-button-prev,
     button.mz-button-next {
-        display: none !important;
+        /*display: none !important;*/
     }
 
     .mobile-magic .mz-expand button.mz-button {
@@ -962,7 +962,6 @@ a[data-zoom-id],
 a[data-zoom-id] img,
 .mz-thumb img {
     border: 0;
-    box-shadow: 0 0 1px 0px rgba(0,0,0,0.3);
     box-sizing: border-box;
 }
 .mz-thumb:hover:not(.mz-thumb-selected) img {

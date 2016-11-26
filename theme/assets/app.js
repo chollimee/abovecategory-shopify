@@ -173,6 +173,8 @@ var App = {
             App.add_viewport_class();
             App.resize();
         });
+
+        App.add_viewport_class();
     },
 
     initialize_elements: function() {
@@ -194,6 +196,10 @@ var App = {
         });
     },
 
+    scrollTo: function(target){
+        $("#page").animate({ scrollTop: $(target).offset().top }, "slow");
+    },
+
     resize: function(){
 
     },
@@ -203,6 +209,11 @@ var App = {
             return (css.match(/(^|\s)viewport-\S+/g) || []).join(' ');
         });
         $('body').addClass("viewport-" + App.viewport.current());
+
+        if(App.viewport.current()!='unrecognized')
+        {
+            $('body').trigger('viewport:updated');
+        }
     },
 
     initialize: function() {
@@ -340,13 +351,18 @@ class CartItem extends React.Component {
 
 var Cart = {
   update: function (items) {
+    this.update_cart_badge(items);
     ReactDOM.render(React.createElement(InlineCart, { items: items }), document.getElementById('inline-cart'));
   },
 
-  initialize: function () {
+  update_cart_badge: function (items) {
+    jQuery('#cart-links a.cart span').html(items.length);
+  },
 
+  initialize: function () {
     jQuery('#cart-links a.cart').bind('click', function (e) {
       e.preventDefault();
+      Cart.update(CartJS.cart.items);
       jQuery('#inline-cart').toggle();
       return false;
     });
@@ -581,11 +597,15 @@ var Filter = {
 
   filters: [],
 
-  url: "",
+  url: "/collections",
 
-  orderby: "",
+  obj: null,
 
-  ordr: "",
+  collection_handle: '',
+
+  current_tags: [],
+
+  collection_tags: [],
 
   add_filter: function(filter)
   {
@@ -601,51 +621,46 @@ var Filter = {
 
   add_filter_and_redirect : function(filter){
     this.add_filter(filter);
-    window.location.href = this.filter_uri();
+    window.location.href = this.filter_uri(this.filters);
   },
 
   remove_filter_and_redirect : function(filter){
     this.remove_filter(filter);
-    window.location.href = this.filter_uri();
+    window.location.href = this.filter_uri(this.filters);
   },
 
-  sort_and_redirect : function(orderby, order)
+  filter_uri: function(filters)
   {
-    this.orderby = orderby;
-    this.order = order;
-    window.location.href = this.filter_uri(); 
+    var collection_uri = URI(this.url);
+    return collection_uri.toString() + "/" + this.collection_handle + "/" + filters.join("+");
   },
 
-  filter_uri: function()
+  other_tags: function()
   {
-    var gallery_uri = URI(this.url);
-    gallery_uri.removeSearch("terms");
-
-    if(this.filters.length > 0)
-    {
-      gallery_uri.addSearch("terms", this.filters.join(","));
-    }
-    
-    if(this.orderby!="")
-    {
-      gallery_uri.addSearch("orderby", this.orderby);
-    }
-
-    if(this.order!="")
-    {
-      gallery_uri.addSearch("order", this.order);
-    }
-
-    return gallery_uri.toString();
+    return _.without(Filter.current_tags, Filter.collection_tags);
   },
 
-  initialize : function(url, options){
+  initialize : function(obj, options){
 
-    this.url = url;
-    filters_by_comma = options["filter"];
-    this.filters = filters_by_comma.split(',');
-    this.orderby = options["orderby"];
-    this.order = options["order"];
+    this.obj = obj;
+    this.current_tags = options["current_tags"];
+    this.collection_handle = options["collection_handle"];
+
+    $('a', obj).each(function(index, element){
+      Filter.collection_tags.push($(element).attr("data-tag"));
+    });
+
+    $('a', obj).each(function(index, element){
+      var tag = $(element).attr("data-tag");
+
+      tags = _.uniq(Filter.other_tags().push(tag));
+      var url = Filter.filter_uri(tags);
+      $(element).attr("href", url);
+      if(Filter.current_tags!=null && Filter.current_tags.indexOf(tag) >=0 )
+      {
+        $(element).parent("li").addClass("selected");
+      }
+    });
   }
 }
 
@@ -677,7 +692,6 @@ var Menu = {
 
   init_collapse: function(){
     $("#main-menu").metisMenu();
-    $("#main-menu .menu-item-has-children > a").append("<span class='fa'></span>")
   },
 
   open : function(){
@@ -719,6 +733,9 @@ class Review extends React.Component {
       media_items.push(React.createElement(ReviewItem, { item: this.props.data.media[i], key: i }));
     }
 
+    var view_all_ac = "https://abovecategorycycling.com/product-reviews?term=ac&" + "shopify_product_id=" + this.props.product;
+    var view_all_media = "https://abovecategorycycling.com/product-reviews?term=media&" + "shopify_product_id=" + this.props.product;
+
     return React.createElement(
       "div",
       { className: "row" },
@@ -739,7 +756,7 @@ class Review extends React.Component {
             { className: "text-sm-right view-all" },
             React.createElement(
               "a",
-              { href: "#" },
+              { href: view_all_ac },
               "View all articles by AC ",
               React.createElement("i", { className: "fa fa-angle-right" })
             )
@@ -763,7 +780,7 @@ class Review extends React.Component {
             { className: "text-sm-right view-all" },
             React.createElement(
               "a",
-              { href: "#" },
+              { href: view_all_media },
               "View all articles by Media ",
               React.createElement("i", { className: "fa fa-angle-right" })
             )
@@ -800,7 +817,7 @@ class ReviewItem extends React.Component {
         { className: "text-sm-right" },
         React.createElement(
           "a",
-          { href: "{this.props.item.post_link}", className: "btn btn-primary btn-acc" },
+          { href: this.props.item.link, className: "btn btn-primary btn-acc" },
           "READ MORE ",
           React.createElement("i", { className: "fa fa-angle-right" })
         )
@@ -811,14 +828,13 @@ class ReviewItem extends React.Component {
 
 var ProductReview = {
   initialize: function (product_id) {
-    var url = "http://23.253.254.9/wp-json/ac/v1/products/" + product_id + "/reviews";
-    url = "https://cdn.shopify.com/s/files/1/1234/3118/t/2/assets/reviews.json?" + Date.now();
+    var url = "https://abovecategorycycling.com/wp-json/ac/v1/products/" + product_id + "/reviews";
 
     jQuery.getJSON({
       url: url
     }).done(function (data) {
 
-      ReactDOM.render(React.createElement(Review, { data: data }), document.getElementById('product-reviews'));
+      ReactDOM.render(React.createElement(Review, { data: data, product: product_id }), document.getElementById('product-reviews'));
     });
   }
 };

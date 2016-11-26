@@ -22,6 +22,8 @@ var App = {
             App.add_viewport_class();
             App.resize();
         });
+
+        App.add_viewport_class();
     },
 
     initialize_elements: function() {
@@ -43,6 +45,10 @@ var App = {
         });
     },
 
+    scrollTo: function(target){
+        $("#page").animate({ scrollTop: $(target).offset().top }, "slow");
+    },
+
     resize: function(){
 
     },
@@ -52,6 +58,11 @@ var App = {
             return (css.match(/(^|\s)viewport-\S+/g) || []).join(' ');
         });
         $('body').addClass("viewport-" + App.viewport.current());
+
+        if(App.viewport.current()!='unrecognized')
+        {
+            $('body').trigger('viewport:updated');
+        }
     },
 
     initialize: function() {

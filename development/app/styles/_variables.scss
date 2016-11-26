@@ -18,3 +18,37 @@ $viewport-lg-down: ".viewport-md, .viewport-sm, .viewport-xs";
 $viewport-md-down: ".viewport-sm, .viewport-xs";
 $viewport-md-up: ".viewport-lg, .viewport-xl";
 $viewport-lg-up: ".viewport-xl";
+
+$badgeSize: 50px;
+$colorTextBody: #333332;
+
+@mixin ac-link{
+  cursor: pointer;
+  position: relative;
+  text-decoration: none!important;
+  &:hover{
+    text-decoration: none;
+    &:after{
+      -webkit-transform: scaleX(1);
+      transform: scaleX(1);
+      opacity: 1;
+    }  
+  }
+
+  &:after{
+    content: ''!important;
+    height: 1px;
+    background-color: #333;
+    width: calc(100% - 3px);
+    position: absolute;
+    left: 0;
+    bottom: -3px;
+    -webkit-transform: scaleX(0);
+    transform: scaleX(0);
+    opacity: 0;
+    -webkit-transition: -webkit-transform .6s cubic-bezier(.165,.84,.44,1),opacity .6s cubic-bezier(.165,.84,.44,1);
+    transition: transform .6s cubic-bezier(.165,.84,.44,1),opacity .6s cubic-bezier(.165,.84,.44,1);
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;
+  }
+}

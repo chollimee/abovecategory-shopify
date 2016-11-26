@@ -11,23 +11,34 @@
 <style type="text/css">.MagicZoomPlus > figure > img { max-width: {{ MagicToolboxThumbnailImageWidth }}px !important; }</style>
 {% endif %}
 <div class="MagicToolboxContainer">
+    
     <a href="{{ product.images[0] | product_img_url: MagicToolboxBigImageSize }}" class="MagicZoomPlus" id="zoom{{ product.id }}" title="{{ product.images[0].alt | escape }}"><img itemprop="image" src="{{ product.images[0] | product_img_url: MagicToolboxThumbnailImageSize }}" alt="{{ product.images[0].alt | escape }}" /></a>
     {% if MagicToolboxShowMessage == 'Yes' %}
     <div class="MagicToolboxMessage">{{ MagicToolboxMessage }}</div>
     {% endif %}
     
-    <div class="MagicToolboxSelectorsContainer" {% if product.images.size < 2 %}style="display:none"{% endif %}>
-      {% for image in product.images offset:0 %}
+    <div class="MagicToolboxSelectorsContainer">
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+              {% for image in product.images offset:0 %}
+                
+                {% unless (image.alt contains "lifestyle") %}
+
+                <div class="swiper-slide">
+                <a href="{{ image | product_img_url: MagicToolboxBigImageSize }}" data-zoom-id="zoom{{ product.id }}" data-image="{{ image | product_img_url: MagicToolboxThumbnailImageSize }}" title="{{ image.alt | escape }}"><img src="{{ image | product_img_url: MagicToolboxSelectorImageSize }}" alt="{{ image.alt | escape }}" /></a>
+                </div>
+
+                {% endunless %}
+                   
+              {% endfor %}
+            </div>
+        </div>
         
-        {% unless (image.alt contains "lifestyle") %}
-
-        <a href="{{ image | product_img_url: MagicToolboxBigImageSize }}" data-zoom-id="zoom{{ product.id }}" data-image="{{ image | product_img_url: MagicToolboxThumbnailImageSize }}" title="{{ image.alt | escape }}"><img src="{{ image | product_img_url: MagicToolboxSelectorImageSize }}" alt="{{ image.alt | escape }}" /></a>
-
-        {% endunless %}
-           
-      {% endfor %}
+        <div class="swipe-control">
+            <button class="swiper-button-prev mz-button mz-button-prev"></button>
+            <button class="swiper-button-next mz-button mz-button-next"></button>
+        </div>
     </div>
-    
 </div>
 
 <script>

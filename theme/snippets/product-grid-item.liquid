@@ -39,7 +39,7 @@
               <span class="badge__text{% if sold_out_text.size > 9 %} badge__text--small{% endif %}">{{ 'products.product.sold_out' | t }}</span>
             </span>
           {% endif %}
-          <span class="grid-link__image-centered product-image">
+          <span class="grid-link__image-centered">
             <img src="{{ product.featured_image.src | img_url: 'grande' }}" alt="{{ product.featured_image.alt | escape }}">
           </span>
         </span>

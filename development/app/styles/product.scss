@@ -14,13 +14,26 @@
     padding-bottom: 20px!important;
   }
 }
+
+.MagicToolboxMessage{
+  display: none;
+}
+
+button.mz-button.mz-button-next, button.mz-button.mz-button-prev{
+  border: none!important;
+  margin: 0!important;
+
+  &:hover, &:focus, &:active{
+    border: none!important;
+  }
+}
+
 .product-single{
   .single-image{
     margin-top: 8rem;
 
     a.MagicZoomPlus{
       display: block;
-      min-height: 50rem;
       height: 100%;
 
       figure.mz-figure{
@@ -35,7 +48,9 @@
     }
 
     .MagicToolboxSelectorsContainer{
+      padding: 0 7rem;
       margin-top: 50px;
+      position: relative;
 
       a {
         display: block;
@@ -109,6 +124,13 @@
     .swatch-selected{
       font-family: 'Gotham Book';
     }
+
+    .swatch-element{
+      cursor: pointer;
+      &.soldout{
+        display: none;
+      }
+    }
   }
 
   .tooltip{
@@ -124,8 +146,6 @@
     text-transform: uppercase;
     display: block;
   }
-
-  .selector-wrapper{ margin-right: 1rem; }
 
   .product-single__quantity .quantity-selector, .single-option-selector {
     width: 100%; 
@@ -221,6 +241,20 @@
       &.current{
         display: block;
       }
+
+      .table-wrapper{
+        margin-right: 5rem;
+      }
+
+      table{
+        width: 100%;
+        tr{
+          border-bottom: 1px solid #e2e2e2;
+          td{
+            padding: 5px 0;
+          }
+        }
+      }
     }
 
     ul{
@@ -246,9 +280,10 @@
   } 
 
   #product-slider{
+    position: relative;
     overflow: hidden;
-    max-height: 66.3rem;
     background: #fff;
+    min-height: 30vh;
     img{
       max-width: 100%;
       width: 100%;
@@ -264,6 +299,8 @@
   .swiper-pagination-bullets{
     bottom: 2rem!important;
     z-index: 99;
+    width: 100%;
+
     .swiper-pagination-bullet{
       margin: 0 0.7rem;
       width: 1.2rem;
@@ -302,6 +339,14 @@
       margin: 0;
     }
 
+    .product-item{
+      .product-meta{
+        strike
+        {
+          display: none;
+        }
+      }
+    }
     .product-item:hover{
       background: #fff;
       .product-info{
@@ -373,6 +418,30 @@
   #product-reviews{
     .items.ac{
       border: none!important;
+    }
+  }
+
+  #tab-1{
+    .product-description{
+      .row > div{
+        margin-bottom: 2rem;
+      }
+    }
+  }
+
+  #product-slider{
+    .swiper-slide{
+      overflow: hidden;
+    }
+
+    .swiper-slide .image{
+      height: 40vh;
+      overflow: hidden;
+      img{
+        height: 100%;
+        width: auto;
+        max-width: none;
+      }
     }
   }
 }

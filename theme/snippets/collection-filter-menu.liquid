@@ -1,0 +1,7 @@
+{% if template contains 'collection' %}
+  {% assign filter_menu = collection.handle | append: "-filter-menu" %}
+
+  {% unless pages[filter_menu].empty? or pages[filter_menu].content == blank %}
+      {{ pages[filter_menu].content }}
+  {% endunless %}
+{% endif %}

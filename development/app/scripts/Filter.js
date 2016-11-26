@@ -2,11 +2,15 @@ var Filter = {
 
   filters: [],
 
-  url: "",
+  url: "/collections",
 
-  orderby: "",
+  obj: null,
 
-  ordr: "",
+  collection_handle: '',
+
+  current_tags: [],
+
+  collection_tags: [],
 
   add_filter: function(filter)
   {
@@ -22,51 +26,46 @@ var Filter = {
 
   add_filter_and_redirect : function(filter){
     this.add_filter(filter);
-    window.location.href = this.filter_uri();
+    window.location.href = this.filter_uri(this.filters);
   },
 
   remove_filter_and_redirect : function(filter){
     this.remove_filter(filter);
-    window.location.href = this.filter_uri();
+    window.location.href = this.filter_uri(this.filters);
   },
 
-  sort_and_redirect : function(orderby, order)
+  filter_uri: function(filters)
   {
-    this.orderby = orderby;
-    this.order = order;
-    window.location.href = this.filter_uri(); 
+    var collection_uri = URI(this.url);
+    return collection_uri.toString() + "/" + this.collection_handle + "/" + filters.join("+");
   },
 
-  filter_uri: function()
+  other_tags: function()
   {
-    var gallery_uri = URI(this.url);
-    gallery_uri.removeSearch("terms");
-
-    if(this.filters.length > 0)
-    {
-      gallery_uri.addSearch("terms", this.filters.join(","));
-    }
-    
-    if(this.orderby!="")
-    {
-      gallery_uri.addSearch("orderby", this.orderby);
-    }
-
-    if(this.order!="")
-    {
-      gallery_uri.addSearch("order", this.order);
-    }
-
-    return gallery_uri.toString();
+    return _.without(Filter.current_tags, Filter.collection_tags);
   },
 
-  initialize : function(url, options){
+  initialize : function(obj, options){
 
-    this.url = url;
-    filters_by_comma = options["filter"];
-    this.filters = filters_by_comma.split(',');
-    this.orderby = options["orderby"];
-    this.order = options["order"];
+    this.obj = obj;
+    this.current_tags = options["current_tags"];
+    this.collection_handle = options["collection_handle"];
+
+    $('a', obj).each(function(index, element){
+      Filter.collection_tags.push($(element).attr("data-tag"));
+    });
+
+    $('a', obj).each(function(index, element){
+      var tag = $(element).attr("data-tag");
+
+      tags = _.uniq(Filter.other_tags().push(tag));
+      var url = Filter.filter_uri(tags);
+      $(element).attr("href", url);
+      if(Filter.current_tags!=null && Filter.current_tags.indexOf(tag) >=0 )
+      {
+        $(element).parent("li").addClass("selected");
+      }
+    });
   }
 }
 
