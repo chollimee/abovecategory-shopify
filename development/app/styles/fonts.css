@@ -140,11 +140,11 @@
 }
 
 @font-face {
-  font-family: 'Helvetica Neue'; 
+  font-family: 'HelveticaNeue MediumCond';
   src: url("font-HelveticaNeue-MediumCond.eot");
   src: url("font-HelveticaNeue-MediumCond.eot#iefix") format("embedded-opentype"),
        url("font-HelveticaNeue-MediumCond.woff") format("woff"),
-       url("font-HelveticaNeue-MediumCond.ttf") format("truetype"),
+       url("font-HelveticaNeue-MediumCond.ttf") format("truetype");
 
   font-weight: 500;
   font-style: normal;

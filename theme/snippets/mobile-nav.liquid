@@ -1,35 +1,4 @@
 
-  <div id="search-box">
-    <form role="search" method="get" id="search-form" action="/search">
-      <input type="hidden" name="type" value="product">
-      <div class="input-group search">
-        <span class="input-group-addon">
-          <i class="fa fa-search"></i>
-        </span>
-        <input type="text" value="{{ search.terms | escape }}" name="q" id="q" class="form-control" placeholder="Search"/>
-      </div>
-    </form>
-  </div>
-  <div id="cart-links" class="text-xs-center">
-    <ul class="row">
-      <li class="col-xs-6">
-        {% if shop.customer_accounts_enabled %}
-        {% if customer %}
-            <a href="/account">{{ 'layout.customer.account' | t }}</a>
-            /
-            {{ 'Logout' | customer_logout_link }}
-
-        {% else %}
-            {{ 'Join' | customer_register_link }} /
-            {{ 'Login' | customer_login_link }}
-        {% endif %}
-        {% endif %}
-      </li>
-      <li class="col-xs-6">
-        <a href="/cart"><i class="fa fa-shopping-cart"></i></a>
-      </li>
-    </ul>
-  </div>
   <nav id="main-menu">
     {% for link in linklists.main-menu.links %}
       {% assign child_list_handle = link.title | handleize %}
@@ -54,4 +23,3 @@
       </li>
       {% endfor %}
   </nav>
-

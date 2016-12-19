@@ -1,3 +1,5 @@
+@import 'bower_components/components-font-awesome/scss/variables';
+@import 'bower_components/components-font-awesome/scss/core';
 @import "bower_components/bootstrap/scss/variables";
 @import "bower_components/bootstrap/scss/mixins";
 @import "variables";
@@ -26,10 +28,6 @@ body{
 
 header{
   font-family: "Gotham Book";
-}
-
-main{
-  min-height: 50vh;
 }
 
 strong{
@@ -431,7 +429,6 @@ a.ac-link{
   @include ac-link;
 }
 
-
 .sold-out img {
   opacity: 0.4;
   filter: alpha(opacity=40);
@@ -508,7 +505,7 @@ a.ac-link{
   margin-bottom:0; text-transform:uppercase; font-size: 1.267rem;
 }
 
-.breadcrumb a, .breadcrumb span{ color: #333332; }
+.breadcrumb a, .breadcrumb span{ color: #333332;  text-decoration: none; }
 .breadcrumb span{font-family: 'Gotham Medium'; }  
 .breadcrumb__sep{ 
   margin: 0 1.2rem; 
@@ -542,4 +539,160 @@ a.ac-link{
   width: 20px;
   height: 20px;
   line-height: 20px;
+}
+
+
+.swiper-pagination-bullets{
+  bottom: 2rem!important;
+  z-index: 99;
+  font-size: 2rem;
+  line-height: 2rem;
+  .swiper-pagination-bullet{
+    margin: 0 0.7rem;
+    width: 1.2rem;
+    height: 1.2rem;
+    background: none;
+    cursor: pointer;
+
+    &:after{
+      font: normal normal normal #{$fa-font-size-base}/#{$fa-line-height-base} FontAwesome; // shortening font declaration
+      content: $fa-var-circle-o;
+      font-size: 2rem;
+      color: #aaa;
+    }
+
+    &.swiper-pagination-bullet-active:after{
+      content: $fa-var-circle;
+    }
+  }
+}
+
+main{
+  min-height: 50vh;
+
+  color: #333332;
+  font-family: 'Helvetica Neue', 'Arial';
+  font-size: 1.6rem;
+  
+  .container-narrow{
+    max-width: 75.4rem;
+    margin: 0 auto;
+  }
+
+  .container-image{
+    max-width: 124.1rem;
+    margin: 0 auto;
+
+    &::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
+    .image-left{
+      width: 50%;
+      box-sizing: 'content-box';
+      padding-right: 0.7rem;
+      float: left;
+    }
+
+    .image-right{
+      width: 50%;
+      box-sizing: 'content-box';
+      padding-left: 0.7rem;
+      float: left;
+    }
+
+    img{
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  .container-wide{
+    max-width: 132.3rem;
+    margin: 0 auto;
+  }
+
+  .container-full{
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    img{
+      width: 100%;
+    }
+  }
+
+  h2{
+    font-size: 2.9rem;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+  }
+
+  a{
+    color: #e4344d;
+    text-decoration: underline;
+    font-family: 'Klavika MediumItalic';
+  }
+
+  ul{
+    min-width: 16rem;
+    margin-bottom: 6rem;
+
+    li{
+      line-height: 1.6rem;
+      margin-bottom: 1.8rem;
+    }
+
+    i{
+      width: 2.2rem;
+      display: inline-block;
+      font-family: 'Gotham Book';
+      font-style: normal;
+      font-weight: bold;
+      line-height: 1.6rem;
+
+      &.fa-circle{
+        font-size: 0.8rem;
+      }
+
+      &.fa-minus{
+        font-size: 0.8rem;
+      }
+
+      &.fa{
+        font-family: 'FontAwesome';
+        line-height: 1.6rem;
+        vertical-align: middle;
+        margin-top: -2px;
+      }
+    }
+  }
+
+  p{
+    margin-bottom: 3rem;
+    font-family: 'Helvetica Neue', 'Arial';
+    font-size: 1.6rem;
+    color: #333332;
+    letter-spacing: 0.06rem;
+  }
+
+  .image-caption{
+    max-width: 55rem;
+    margin: 0 auto;
+
+    font-family: 'Gotham Book';
+    text-align: center;
+    font-size: 1.6rem;
+    color: #808080;
+    padding-bottom: 3.5rem;
+    margin-top: 3.8rem;
+    margin-bottom: 6rem;
+
+    .bottom-border{
+      width: 72%;
+      margin: 0 auto;
+      margin-top: 4rem;
+      border-bottom: 1px solid #e1e0dd;
+    }
+  }
 }

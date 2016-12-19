@@ -1,6 +1,7 @@
 {% assign slider_enabled = true %}
-<div class="flexslider">
-  <ul class="slides">
+<div class="swiper-container">
+  <!-- Additional required wrapper -->
+  <ul class="swiper-wrapper">
     {% for i in (1..6) %}
       {% capture slide %}slide_{{ i }}{% endcapture %}
       {% capture slide_link %}slide_{{ i }}_link{% endcapture %}
@@ -9,11 +10,42 @@
       {% capture slide_content %}slide_{{ i }}_content{% endcapture %}
       {% capture slide_class %}slide_{{ i }}_class{% endcapture %}
       {% if settings[slide] %}
-  <li>
- {{ slide_img | asset_url | img_tag: settings[slide_alt] }}
-<div class="caption {{ settings[slide_class] }}"> {{ settings[slide_content] }}  <a href="{{ settings[slide_link] }}" class="slide-link">READ MORE</a></div>
+        <li class="swiper-slide">
+          {{ slide_img | asset_url | img_tag: settings[slide_alt] }}
+          <div class="caption caption-{{ settings[slide_class] }}">
+            <div class="caption-text">{{ settings[slide_content] }}</div>
+            <div class="caption-link">
+            <a href="{{ settings[slide_link] }}" class="ac-link btn btn-info">READ MORE</a>
+            </div>
+          </div>
         </li>
       {% endif %}
-         {% endfor %}
+    {% endfor %}
   </ul>
+  
+  <!-- If we need pagination -->
+  <div class="swiper-pagination"></div>
+
+  <!-- If we need navigation buttons -->
+  <div class="swiper-button-prev"><i class="fa fa-angle-left"></i></div>
+  <div class="swiper-button-next"><i class="fa fa-angle-right"></i></div>
 </div>
+
+<script>        
+var mySwiper = new Swiper ('.swiper-container', {
+  // Optional parameters
+  direction: 'horizontal',
+  loop: true,
+  
+  // If we need pagination
+  pagination: '.swiper-pagination',
+  paginationClickable: true,
+
+  preventClicksPropagation: false,
+  preventClicks: false,
+  
+  // Navigation arrows
+  nextButton: '.swiper-button-next',
+  prevButton: '.swiper-button-prev'
+})        
+</script>

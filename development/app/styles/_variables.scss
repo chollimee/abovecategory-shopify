@@ -50,5 +50,6 @@ $colorTextBody: #333332;
     transition: transform .6s cubic-bezier(.165,.84,.44,1),opacity .6s cubic-bezier(.165,.84,.44,1);
     -webkit-transform-origin: 0 0;
     transform-origin: 0 0;
+    display: block;
   }
 }

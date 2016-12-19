@@ -92,6 +92,38 @@
 <body id="{{ page_title | handle }}" class="{% if customer %}customer-logged-in {% endif %}template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }}" >
 
   <div id="mobile-navigation" off-canvas="left-sidebar left reveal">
+    <div id="search-box">
+      <form role="search" method="get" id="search-form" action="/search">
+        <input type="hidden" name="type" value="product">
+        <div class="input-group search">
+          <span class="input-group-addon">
+            <i class="fa fa-search"></i>
+          </span>
+          <input type="text" value="{{ search.terms | escape }}" name="q" id="q" class="form-control" placeholder="Search"/>
+        </div>
+      </form>
+    </div>
+    <div id="cart-links" class="text-xs-center">
+      <ul class="row">
+        <li class="col-xs-6">
+          {% if shop.customer_accounts_enabled %}
+          {% if customer %}
+              <a href="/account">{{ 'layout.customer.account' | t }}</a>
+              /
+              {{ 'Logout' | customer_logout_link }}
+
+          {% else %}
+              {{ 'Join' | customer_register_link }} /
+              {{ 'Login' | customer_login_link }}
+          {% endif %}
+          {% endif %}
+        </li>
+        <li class="col-xs-6">
+          <a href="/cart"><i class="fa fa-shopping-cart"></i></a>
+        </li>
+      </ul>
+    </div>
+    
     {% include 'mobile-nav' %}
   </div>
 
@@ -123,6 +155,12 @@
     {% endif %}
 
     {% include 'buddha-megamenu' %}
+    <script>
+      //budha menu fix
+      mmGoToPage = function(element){
+        window.location.href = $(element).attr('data-href');
+      }
+    </script>
     
     <!--Swatch Script-->
     <script>
